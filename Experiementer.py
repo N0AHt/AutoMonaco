@@ -8,3 +8,12 @@ import PatchClamp
 
 monaco = Monaco()
 patch = PatchClamp()
+
+monaco.power_on()
+
+for i in len(experiment_values):
+    monaco.set_parameters(experiment_values[i])
+    monaco.run()
+    patch.record()
+
+monaco.power_off

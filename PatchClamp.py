@@ -5,4 +5,4 @@
 
 import SerialCommander as sc
 
-class PatchClamp(SerialCommander):
+class PatchClamp(AutoMonaco.SerialCommander):

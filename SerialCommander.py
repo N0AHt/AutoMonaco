@@ -20,13 +20,20 @@ class SerialCommander:
         (self.port).close()
 
     def readline():
-        (self.port).readline()
+        return (self.port).readline()
 
+    #input type will need checking? (b strings used in examples)
     def write(string_input):
-        (self.port).write(str(string_input))
+        #add new line token to signal end of command
+        command = string_intput + ' \n'
+        (self.port).write(command)
+
+    def query(string_input):
+        self.write(string_input)
+        output = self.readline()
+        print(output)
+        return output 
 
     def portID():
         self.port
         print('\n Port Open: ', (self.port).is_open)
-
-    

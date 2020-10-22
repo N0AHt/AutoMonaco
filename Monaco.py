@@ -15,12 +15,14 @@ class Monaco(SerialCommander):
         self.pulse_freq = pulse_freq
 
         #move this to the power function?
-        self.openPort()
+        #self.openPort()
 
 
     def serial_test(self):
-        self.write('?HV')
-        print(self.readline())
+        self.serial_write('?HV')
+        print('sent...')
+        print(self.serial_read())
+        print('\n recieved')
 
         self.write('?LM')
         print(self.readline())

@@ -31,21 +31,20 @@ class SerialCommander:
         #add new line token to signal end of command
         command = string_input + '\n'
         command_encoded = command.encode('utf-8')
-        print(command_encoded)
         (self.port).write(command_encoded)
 
     def query(self, string_input):
         self.write(string_input)
         output = self.readline()
-        #print(output)
         return output
 
-    def portID():
+    def portID(self):
         self.port
         print('\n Port Open: ', (self.port).is_open)
 
     @staticmethod
     #lists ports available - static, so can be called before instantiating object
+    #use before instantiation to see what ports to choose
     def port_finder():
         port_list = [comport.device for comport in list_ports.comports()]
         return port_list

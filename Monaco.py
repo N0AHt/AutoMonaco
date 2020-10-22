@@ -21,10 +21,10 @@ class Monaco(SerialCommander):
     def serial_test(self):
         self.serial_write('?HV')
         print('sent...')
-        print(self.serial_read())
-        print('\n recieved')
+        #print(self.serial_read())
+        print('\nrecieved')
 
-        self.write('?LM')
+        self.serial_write('?LM')
         print(self.readline())
 
         self.write('?L')

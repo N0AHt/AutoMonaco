@@ -2,37 +2,37 @@
 #19/10/2020
 
 #(abstract) Class to control simple data flow via serial ports
-# wrapper for pyserial to make things easy
+# simple wrapper for pyserial to make things easy
 
 import serial
 
 class SerialCommander:
 
-    def __init__(self,Port_id, baudrate):
+    def __init__(self, Port_id, baudrate):
         self.port_id = Port_id
         self.baudrate = baudrate
         self.port = serial.Serial(port_id)
 
-    def openPort():
+    def openPort(self):
         (self.port).open()
 
-    def closePort():
+    def closePort(self):
         (self.port).close()
 
-    def readline():
+    def readline(self):
         return (self.port).readline()
 
     #input type will need checking? (b strings used in examples)
-    def write(string_input):
+    def write(self, string_input):
         #add new line token to signal end of command
-        command = string_intput + ' \n'
+        command = string_intput + '\n'
         (self.port).write(command)
 
-    def query(string_input):
+    def query(self, string_input):
         self.write(string_input)
         output = self.readline()
-        print(output)
-        return output 
+        #print(output)
+        return output
 
     def portID():
         self.port

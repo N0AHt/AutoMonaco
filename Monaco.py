@@ -3,23 +3,22 @@
 
 #Class to interface with Coherent's Monaco laser
 
-import SerialCommander
+from SerialCommander import SerialCommander
 
-class Monaco(AutoMonaco.SerialCommander):
+class Monaco(SerialCommander):
 
-    def __init__(self, Port_id, baudrate, power, pulse_freq, wavelength):
+    def __init__(self, Port_id, baudrate, power, pulse_freq):
 
         super().__init__(Port_id, baudrate)
 
         self.power = power
         self.pulse_freq = pulse_freq
-        self.wavelength = wavelength
 
         #move this to the power function?
         self.openPort()
 
 
-    def serial_test():
+    def serial_test(self):
         self.write('?HV')
         print(self.readline())
 
@@ -29,7 +28,7 @@ class Monaco(AutoMonaco.SerialCommander):
         self.write('?L')
         print(self.readline())
     #
-    # def power_on():
+    # def power_on(self):
     #     # protocol to power on the laser safely
     #     # will need many safety checks here
     #
@@ -53,7 +52,7 @@ class Monaco(AutoMonaco.SerialCommander):
     #     #turn on laser
     #     self.write()
     #
-    # def power_off():
+    # def power_off(self):
     #     #protocol for turning off the laser
     #     #probably will need safety protocols here too
     #
@@ -66,13 +65,13 @@ class Monaco(AutoMonaco.SerialCommander):
     #     #close port
     #     self.closePort()
     #
-    # def run_laser():
+    # def run_laser(self):
     #     #run a set laser protocol
     #     #open the shutters and run the laser at set parameters
     #
     #     self.write()
     #
-    # def set_parameters(power = self.power, pulse_freq = self.pulse_freq, wavelength = self.wavelength):
+    # def set_parameters(self, power = self.power, pulse_freq = self.pulse_freq, wavelength = self.wavelength):
     #     #update internal parameter values
     #     self.power = power
     #     self.pulse_freq = pulse_freq

@@ -21,13 +21,11 @@ class Monaco(SerialCommander):
     def serial_test(self):
         key_status = self.query('?K')
         print('Key query sent...')
-        print(Key_status)
+        print(Key_status, '\n')
 
-        self.serial_write('?LM')
-        print(self.readline())
+        laser_temp = self.query('?BT')
+        print('Laser temperature = ', laser_temp)
 
-        self.write('?L')
-        print(self.readline())
     #
     # def power_on(self):
     #     # protocol to power on the laser safely

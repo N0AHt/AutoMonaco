@@ -37,8 +37,8 @@ class SerialCommander:
         (self.port).write(command_encoded)
 
     def query(self, string_input):
-        self.write(string_input)
-        output = self.readline()
+        self.serial_write(string_input)
+        output = self.serial_read()
         return output
 
     def portID(self):

@@ -4,16 +4,19 @@
 #(abstract) Class to control simple data flow via serial ports
 # simple wrapper for pyserial to make things easy
 
+#should implement a feature to keep track of the return <CR><LS> from the
+#microscope, to ensure good 'handshaking'
+
 import serial
 from serial.tools import list_ports
 
 
 class SerialCommander:
 
-    def __init__(self, Port_id, baudrate):
+    def __init__(self, Port_id, baudrate, timeout):
         self.port_id = Port_id
         self.baudrate = baudrate
-        self.port = serial.Serial(Port_id)
+        self.port = serial.Serial(Port_id, baudrate = baudrate, timeout = timeout)
 
     def openPort(self):
         (self.port).open()
@@ -23,14 +26,14 @@ class SerialCommander:
 
     def serial_read(self):
         line = (self.port).readline()
-        input_decoded = line.decode('utf-8')
+        input_decoded = line.decode('ascii')
         return input_decoded
 
     #input type will need checking? (b strings used in examples)
     def serial_write(self, string_input):
         #add new line token to signal end of command
-        command = string_input + '\n'
-        command_encoded = command.encode('utf-8')
+        command = string_input + '\r\n'
+        command_encoded = command.encode('ascii')
         (self.port).write(command_encoded)
 
     def query(self, string_input):

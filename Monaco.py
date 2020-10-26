@@ -7,9 +7,9 @@ from SerialCommander import SerialCommander
 
 class Monaco(SerialCommander):
 
-    def __init__(self, Port_id, baudrate, power, pulse_freq):
+    def __init__(self, Port_id, baudrate, power, pulse_freq, timeout = 2):
 
-        super().__init__(Port_id, baudrate)
+        super().__init__(Port_id, baudrate, timeout)
 
         self.power = power
         self.pulse_freq = pulse_freq
@@ -19,10 +19,9 @@ class Monaco(SerialCommander):
 
 
     def serial_test(self):
-        self.serial_write('?HV')
-        print('sent...')
-        #print(self.serial_read())
-        print('\nrecieved')
+        key_status = self.query('?K')
+        print('Key query sent...')
+        print(Key_status)
 
         self.serial_write('?LM')
         print(self.readline())

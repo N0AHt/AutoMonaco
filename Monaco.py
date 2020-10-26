@@ -21,7 +21,7 @@ class Monaco(SerialCommander):
     def serial_test(self):
         key_status = self.query('?K')
         print('Key query sent...')
-        print(Key_status, '\n')
+        print(key_status, '\n')
 
         laser_temp = self.query('?BT')
         print('Laser temperature = ', laser_temp)

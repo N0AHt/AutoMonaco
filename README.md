@@ -1,7 +1,7 @@
 # AutoMonaco
-Experiment automation code for Coherent's Monaco Laser
+Experiment automation for Coherent's Monaco Laser
 
-
-Parameter-optimisation automation for optogentetic stimulation of large populations of neurons
+Contains extendable, versatile classes to allow easy control of the laser via serial commands as well as scripts using these classes
+to automate parameter-optimisation protocols for optogentetic stimulation of large populations of neurons.
 
 Heavily based on https://github.com/AliSan123/Optogenetics_project

@@ -75,7 +75,7 @@ class Monaco(SerialCommander):
         if self.laser_ready == True:
             #set pulse mode
             self.serial_write('PM=',str(pulsemode))
-            self.query('?PM')
+            print('Pulse Mode ', self.query('?PM')
 
             #Turn on diodes
             if self.query('?S') == 0:
@@ -113,7 +113,20 @@ class Monaco(SerialCommander):
             #Open the shutters
             self.serial_write('S=1')
 
-            #monitoring system during lasing
+            #monitoring system during lasing?
+
+        else:
+            print('LASER NOT READY')
+
+    def stop_lasing(self):
+        #close the shutters
+        self.serial_write('S=0')
+        #turn off the diodes_on
+        self.serial_write('L=0')
+
+        #check if lasers are cool - make method for continuously testing this
+        laser_cool = self.query('?ST')
+        print(laser_cool)
 
 
     # def power_off(self):
@@ -129,11 +142,6 @@ class Monaco(SerialCommander):
     #     #close port
     #     self.closePort()
     #
-    # def run_laser(self):
-    #     #run a set laser protocol
-    #     #open the shutters and run the laser at set parameters
-    #
-    #     self.write()
     #
     # def set_parameters(self, power = self.power, pulse_freq = self.pulse_freq, wavelength = self.wavelength):
     #     #update internal parameter values

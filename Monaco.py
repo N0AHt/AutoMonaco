@@ -13,8 +13,11 @@ class Monaco(SerialCommander):
 
         self.power = power
         self.pulse_freq = pulse_freq
+
+        #internal checks
         self.shutter_position = None
         self.laser_ready = False
+        self.diodes_on = False
 
         #check if port is open
         if self.check_open() == False:
@@ -86,15 +89,17 @@ class Monaco(SerialCommander):
             diode_ready = 'OFF'
             while diode_ready != 'On':
                 diode_ready = self.query('?ST')
-                print('*', end = '')
+                print(diode_ready)
                 time.sleep(10)
             print('\n')
+
+            self.diodes_on = True
 
         else:
             print('LASER NOT READY - run start_up step')
 
     def start_lasing(self):
-        
+
 
     # def power_off(self):
     #     #protocol for turning off the laser

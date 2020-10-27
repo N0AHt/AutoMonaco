@@ -7,6 +7,6 @@ print('Port list: ', Monaco.port_finder())
 port = input('input port: ')
 
 
-laser = Monaco(port, baudrate = 19200, power = 0, pulse_freq = 0, timeout = 2)
+laser = Monaco(Port_id = port, power = 0, pulse_freq = 0)
 laser.portID()
 laser.serial_test()

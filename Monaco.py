@@ -7,7 +7,7 @@ from SerialCommander import SerialCommander
 
 class Monaco(SerialCommander):
 
-    def __init__(self, Port_id, baudrate, power, pulse_freq, timeout = 2):
+    def __init__(self, Port_id, baudrate = 19200, power, pulse_freq, timeout = 2):
 
         super().__init__(Port_id, baudrate, timeout)
 

@@ -67,7 +67,7 @@ class Monaco(SerialCommander):
         laserCheck = 'n'
         while laserCheck != 'y':
             laserCheck = input('\n !Confirm Laser Ready! [y/n] \n')
-            self.laser_ready = True
+        self.laser_ready = True
 
 #needs to be run AFTER the setup function, should include checks or include in
 #the same function as start_up()
@@ -98,7 +98,22 @@ class Monaco(SerialCommander):
         else:
             print('LASER NOT READY - run start_up step')
 
+#Actually projecting the laser beam - safety checks here too
     def start_lasing(self):
+        if (self.diodes_on == True) and (self.laser_ready == True):
+
+            #manual check
+            lasercheck2 = 'n'
+            while lasercheck2 != 'y':
+                lasercheck2 = input('Confirm Start Lasing [y/n] ')
+
+            #turn on pulses
+            self.serial_write('PC=1')
+
+            #Open the shutters
+            self.serial_write('S=1')
+
+            #monitoring system during lasing
 
 
     # def power_off(self):

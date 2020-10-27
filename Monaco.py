@@ -37,7 +37,7 @@ class Monaco(SerialCommander):
 
     def start_up(self):
         # protocol to power on the laser safely - doesnt turn on diodes
-        # will need many safety checks here
+        # will need safety checks here
 
         #Step1 - Chillers on
         self.serial_write('CHEN=1')

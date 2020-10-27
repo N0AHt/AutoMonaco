@@ -16,7 +16,8 @@ class SerialCommander:
     def __init__(self, Port_id, baudrate, timeout):
         self.port_id = Port_id
         self.baudrate = baudrate
-        self.port = serial.Serial(Port_id, baudrate = baudrate, timeout = timeout)
+        self.timeout - timeout
+        self.port = serial.Serial(port = Port_id, baudrate = baudrate, timeout = timeout)
 
     def openPort(self):
         (self.port).open()
@@ -24,12 +25,14 @@ class SerialCommander:
     def closePort(self):
         (self.port).close()
 
+    def check_open(self):
+        return (self.port).is_open
+
     def serial_read(self):
         line = (self.port).readline()
         input_decoded = line.decode('ascii')
         return input_decoded
 
-    #input type will need checking? (b strings used in examples)
     def serial_write(self, string_input):
         #add new line token to signal end of command
         command = string_input + '\r\n'
@@ -42,7 +45,7 @@ class SerialCommander:
         return output
 
     def portID(self):
-        self.port
+        print(self.port)
         print('\n Port Open: ', (self.port).is_open)
 
     @staticmethod

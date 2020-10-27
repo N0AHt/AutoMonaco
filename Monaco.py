@@ -14,14 +14,17 @@ class Monaco(SerialCommander):
         self.power = power
         self.pulse_freq = pulse_freq
 
-        #move this to the power function?
-        #self.openPort()
+        #check if port is open
+        if self.check_open() = False:
+            print('Opening Port \n')
+            self.openPort()
+        else:
+            print('Port Open \n')
 
-
+    #Quick test to make sure serial connection to laser works as expected
     def serial_test(self):
         key_status = self.query('?K')
-        print('Key query sent...')
-        print(key_status, '\n')
+        print('Key status = ', key_status, '\n')
 
         laser_temp = self.query('?BT')
         print('Laser temperature = ', laser_temp)

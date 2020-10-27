@@ -128,6 +128,8 @@ class Monaco(SerialCommander):
         laser_cool = self.query('?ST')
         print(laser_cool)
 
+        self.diodes_on = False
+
 
     # def power_off(self):
     #     #protocol for turning off the laser

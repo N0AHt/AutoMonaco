@@ -6,7 +6,13 @@ to automate parameter-optimisation protocols for optogentetic stimulation of lar
 
 
 Dependencies:
+
 pyserial - https://pypi.org/project/pyserial/
 
+https://github.com/clade/ThorlabsPM100
+
 Acknowledgements:
+
 Heavily based on https://github.com/AliSan123/Optogenetics_project
+
+

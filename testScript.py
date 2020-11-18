@@ -24,4 +24,4 @@ while retry == 'y':
     laser.serial_write('RL=50')
     retry = input('retry? [y/n]')
 
-    
+laser.stop_lasing()

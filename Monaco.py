@@ -27,6 +27,18 @@ class Monaco(SerialCommander):
         else:
             print('Port Open \n')
 
+    def update_internal_states(self):
+        self.key_status = self.query()
+        self.shutter_position = self.query('S?')
+        self.chiller_status = self.query()
+        self.diode_status = self.query()
+        self.pulse_mode = self.query()
+        self.pulse_status = self.query()
+
+    def status_report(self):
+        self.update_internal_states()
+        #display results
+
     #Quick test to make sure serial connection to laser works as expected
     def serial_test(self):
         key_status = self.query('?K')
@@ -35,12 +47,12 @@ class Monaco(SerialCommander):
         laser_temp = self.query('?BT')
         print('Laser temperature = ', laser_temp)
 
-
+#Pre-flight checks
     def start_up(self):
         # protocol to power on the laser safely - doesnt turn on diodes
         # will need safety checks here
 
-        #Step1 - Chillers on
+        #Step1 - Chillers on (should just be a check)
         self.serial_write('CHEN=1')
 
         #Wait Cycle (3 mins?)
@@ -128,12 +140,16 @@ class Monaco(SerialCommander):
         else:
             print('LASER NOT READY')
 
-#shouldnt turn diodes off, just shutter. open shutter should be seperate too
+#essentially just closing the shutters
     def stop_lasing(self):
+
+#fully shuts down the laser
+    def deactivate_laser(self):
         #close the shutters
         self.serial_write('S=0')
         #turn off the diodes_on
         self.serial_write('L=0')
+        #turn off pulsing
         self.serial_write('PC=0')
 
         #check if lasers are cool - make method for continuously testing this

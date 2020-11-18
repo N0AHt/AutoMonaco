@@ -4,10 +4,11 @@
 #Class to interface with Coherent's Monaco laser
 
 from SerialCommander import SerialCommander
+import time
 
 class Monaco(SerialCommander):
 
-    def __init__(self, Port_id, baudrate = 19200, power, pulse_freq, timeout = 2):
+    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 0, timeout = 2):
 
         super().__init__(Port_id, baudrate, timeout)
 
@@ -43,13 +44,16 @@ class Monaco(SerialCommander):
         self.serial_write('CHEN=1')
 
         #Wait Cycle (3 mins?)
-        time.sleep(180)
+        #time.sleep(180)
 
         #check keyswitch
-        key_status = self.query('?k')
-        if key_status != 1:
-            print('\n keyswitch off \n')
-            keycheck = input('turn keyswitch on [y/n]')
+        keycheck = self.query('?k')
+        print(keycheck)
+        # while keycheck != 1:
+        #     print('\n keyswitch off \n')
+        #     print('key stat: '. keycheck)
+        #     input('turn keyswitch on [y/n]')
+        #     keycheck = self.query('?k')
 
         #check for faults
         faults_status = self.query('?F')
@@ -61,7 +65,7 @@ class Monaco(SerialCommander):
         #Close Shutters
         self.serial_write('S=0')
         self.shutter_position = self.query('?S')
-        print('self.shutter_position')
+        print('shutter_position: ', self.shutter_position)
 
         #Manual check
         laserCheck = 'n'
@@ -71,11 +75,14 @@ class Monaco(SerialCommander):
 
 #needs to be run AFTER the setup function, should include checks or include in
 #the same function as start_up()
-    def activate_laser(self, pulse_mode):
+    def activate_laser(self, pulsemode):
         if self.laser_ready == True:
             #set pulse mode
-            self.serial_write('PM=',str(pulsemode))
-            print('Pulse Mode ', self.query('?PM')
+            pulse_mode = 'PM=' + str(pulsemode)
+            self.serial_write(pulse_mode)
+            print('Pulse Mode ', self.query('?PM'))
+
+            self.serial_write('RL=80')
 
             #Turn on diodes
             if self.query('?S') == 0:
@@ -86,14 +93,17 @@ class Monaco(SerialCommander):
             print('\n Warming Diodes \n')
 
             #wait for diodes to warm
-            diode_ready = 'OFF'
-            while diode_ready != 'On':
-                diode_ready = self.query('?ST')
-                print(diode_ready)
-                time.sleep(10)
-            print('\n')
+            # diode_ready = 'OFF'
+            # while diode_ready != 'On':
+            #     diode_ready = self.query('?ST')
+            #     print(diode_ready)
+            #     time.sleep(10)
+            # print('\n')
 
             self.diodes_on = True
+            diode_ready = self.query('?ST')
+            print(diode_ready)
+
 
         else:
             print('LASER NOT READY - run start_up step')
@@ -111,18 +121,20 @@ class Monaco(SerialCommander):
             self.serial_write('PC=1')
 
             #Open the shutters
-            self.serial_write('S=1')
+            #self.serial_write('S=1')
 
             #monitoring system during lasing?
 
         else:
             print('LASER NOT READY')
 
+#shouldnt turn diodes off, just shutter. open shutter should be seperate too
     def stop_lasing(self):
         #close the shutters
         self.serial_write('S=0')
         #turn off the diodes_on
         self.serial_write('L=0')
+        self.serial_write('PC=0')
 
         #check if lasers are cool - make method for continuously testing this
         laser_cool = self.query('?ST')

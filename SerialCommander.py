@@ -16,7 +16,7 @@ class SerialCommander:
     def __init__(self, Port_id, baudrate, timeout):
         self.port_id = Port_id
         self.baudrate = baudrate
-        self.timeout - timeout
+        self.timeout = timeout
         self.port = serial.Serial(port = Port_id, baudrate = baudrate, timeout = timeout)
 
     def openPort(self):

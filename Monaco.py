@@ -8,19 +8,17 @@ import time
 
 class Monaco(SerialCommander):
 
-    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 0, timeout = 2):
+    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 0, timeout = 5):
 
         super().__init__(Port_id, baudrate, timeout)
 
         self.power = power
         self.pulse_freq = pulse_freq
 
-        #internal checks
-        self.shutter_position = None
-        self.laser_ready = False
-        self.diodes_on = False
+        #internal checks - find out the current state of the laser
+        self.update_internal_states()
 
-        #check if port is open
+        #check if serial port is open
         if self.check_open() == False:
             print('Opening Port \n')
             self.openPort()
@@ -28,62 +26,81 @@ class Monaco(SerialCommander):
             print('Port Open \n')
 
     def update_internal_states(self):
-        self.key_status = self.query()
-        self.shutter_position = self.query('S?')
-        self.chiller_status = self.query()
+        self.key_status = self.query('?K')
+        self.shutter_position = self.query('?S')
+        self.chiller_status = self.query('?CHEN')
         self.diode_status = self.query()
         self.pulse_mode = self.query()
         self.pulse_status = self.query()
 
+        #laser ready check - ready to turn on diodes
+        if self.key_status == 1 and self.shutter_position == 0 and self.chiller_status = 1:
+            self.laser_ready = True
+        else:
+            self.laser_ready = False
+
+        #Diode Ready check - ready to open shutters and fire laser
+        if self.diode_status = 0 and self.pulse_status = 0:
+            self.diode_ready = True
+        else:
+            self.diode_ready = False
+
     def status_report(self):
         self.update_internal_states()
         #display results
+        print('KEY STATUS: ')
 
     #Quick test to make sure serial connection to laser works as expected
-    def serial_test(self):
+    #Gives basic info re the laser
+    def hello_laser(self):
         key_status = self.query('?K')
         print('Key status = ', key_status, '\n')
 
         laser_temp = self.query('?BT')
         print('Laser temperature = ', laser_temp)
 
-#Pre-flight checks
+    #Pre-flight checks
     def start_up(self):
         # protocol to power on the laser safely - doesnt turn on diodes
         # will need safety checks here
 
-        #Step1 - Chillers on (should just be a check)
-        self.serial_write('CHEN=1')
+        #review laser status
+        self.update_internal_states()
 
-        #Wait Cycle (3 mins?)
-        #time.sleep(180)
+        #Step 1 - Check Chillers Are On
+        if self.chiller_status == 1:
+            print('CHILLERS: ', self.chiller_status, ' OK \n')
+        else:
+            print 'CHILLERS: ', self.chiller_status, 'NOT ENABLED - TURN ON CHILLERS \n'
 
-        #check keyswitch
-        keycheck = self.query('?k')
-        print(keycheck)
-        # while keycheck != 1:
-        #     print('\n keyswitch off \n')
-        #     print('key stat: '. keycheck)
-        #     input('turn keyswitch on [y/n]')
-        #     keycheck = self.query('?k')
+        #Step 2 - check keyswitch
+        if self.key_status == 1:
+            print('KEY STATUS: ', self.key_status, ' OK \n')
+        else:
+            print('KEY STATUS: ', self.key_status, ' KEY NOT TURNED ON \n')
 
-        #check for faults
+        #Check for Faults
         faults_status = self.query('?F')
-        print(faults_status)
+        print('FAULT STATUS: \n', faults_status)
         #check for warnings
         warning_status = self.query('?W')
-        print(warning_status)
+        print('WARNING STATUS: \n', warning_status)
 
         #Close Shutters
         self.serial_write('S=0')
         self.shutter_position = self.query('?S')
-        print('shutter_position: ', self.shutter_position)
+        if self.shutter_position == 0:
+            print('Shutter Position: ', self.shutter_position, ' CLOSED')
+        else:
+            print('Shutter Position: ', self.shutter_position, ' OPEN')
 
-        #Manual check
+        #Manual Confirmation
         laserCheck = 'n'
         while laserCheck != 'y':
             laserCheck = input('\n !Confirm Laser Ready! [y/n] \n')
-        self.laser_ready = True
+
+        #Update Laser States (mostly redundant)
+        self.update_internal_states()
 
 #needs to be run AFTER the setup function, should include checks or include in
 #the same function as start_up()

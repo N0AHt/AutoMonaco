@@ -5,6 +5,7 @@
 
 from SerialCommander import SerialCommander
 import time
+import system as sys
 
 class Monaco(SerialCommander):
 
@@ -25,31 +26,6 @@ class Monaco(SerialCommander):
         else:
             print('Port Open \n')
 
-    def update_internal_states(self):
-        self.key_status = self.query('?K')
-        self.shutter_position = self.query('?S')
-        self.chiller_status = self.query('?CHEN')
-        self.diode_status = self.query('?ST')
-        self.pulse_mode = self.query()
-        self.pulse_status = self.query()
-
-        #laser ready check - ready to turn on diodes
-        if self.key_status == 1 and self.shutter_position == 0 and self.chiller_status = 1:
-            self.laser_ready = True
-        else:
-            self.laser_ready = False
-
-        #Diode Ready check - ready to open shutters and fire laser
-        if self.diode_status = 1 and self.pulse_status = 0:
-            self.diode_ready = True
-        else:
-            self.diode_ready = False
-
-    # def status_report(self):
-    #     self.update_internal_states()
-    #     #display results
-    #     print('KEY STATUS: ')
-
     #Quick test to make sure serial connection to laser works as expected
     #Gives basic info re the laser
     def hello_laser(self):
@@ -58,6 +34,31 @@ class Monaco(SerialCommander):
 
         laser_temp = self.query('?BT')
         print('Laser temperature = ', laser_temp)
+
+    def update_internal_states(self):
+        self.key_status = self.query('?K')
+        self.shutter_position = self.query('?S')
+        self.chiller_status = self.query('?CHEN')
+        self.diode_status = self.query('?ST')
+        self.pulse_mode = self.query('?PM')
+        self.pulse_status = self.query('?PC')
+
+        #laser ready check - ready to turn on diodes
+        if self.key_status == 1 and self.shutter_position == 0 and self.chiller_status = 1:
+            self.laser_ready = True
+        else:
+            self.laser_ready = False
+
+        #Diode Ready check - ready to open shutters and fire laser
+        if self.diode_status = 1 and self.pulse_status = 1:
+            self.diode_ready = True
+        else:
+            self.diode_ready = False
+
+    # def status_report(self):
+    #     self.update_internal_states()
+    #     #display results
+    #     print('KEY STATUS: ')
 
     #Pre-flight checks
     def start_up(self):
@@ -95,23 +96,25 @@ class Monaco(SerialCommander):
             print('Shutter Position: ', self.shutter_position, ' OPEN')
 
         #Manual Confirmation
-        laserCheck = 'n'
-        while laserCheck != 'y':
-            laserCheck = input('\n !Confirm Laser Ready! [y/n] \n')
+        laserCheck = input('\n !Confirm Laser Ready! [y/n] \n')
+        if laserCheck != 'y':
+            sys.exit()
 
         #Update Laser States (mostly redundant)
         self.update_internal_states()
 
-#needs to be run AFTER the setup function, should include checks or include in
-#the same function as start_up()
+
+    #needs to be run AFTER the setup function, should include checks or include in
+    #the same function as start_up()
     def activate_laser(self, pulsemode):
         self.update_internal_states()
         if self.laser_ready == True:
-            #set pulse mode
+            #set pulse mode - should add a valueSet function to serial commander to handle this concatonation
             pulse_mode = 'PM=' + str(pulsemode)
             self.serial_write(pulse_mode)
             print('Pulse Mode: ', self.query('?PM'))
 
+            #should update to use the self.power attribute at some point
             self.serial_write('RL=80')
 
             #Turn on diodes
@@ -123,22 +126,20 @@ class Monaco(SerialCommander):
             print('\n Warming Diodes \n')
 
             #wait for diodes to warm
-            # diode_ready = 'OFF'
-            # while diode_ready != 'On':
-            #     diode_ready = self.query('?ST')
-            #     print(diode_ready)
-            #     time.sleep(10)
-            # print('\n')
-
-            self.diodes_on = True
-            diode_ready = self.query('?ST')
-            print(diode_ready)
-
+            diode_ready = 'OFF'
+            while diode_ready != 'ON':
+                diode_ready = self.query('?ST')
+                print('Diode Status: ', diode_ready)
+                time.sleep(10)
+            print('\n')
 
         else:
             print('LASER NOT READY - run start_up step')
+            sys.exit()
 
-#Actually projecting the laser beam - safety checks here too
+        self.update_internal_states()
+
+    #Actually projecting the laser beam - safety checks here too
     def start_lasing(self):
         if (self.diodes_on == True) and (self.laser_ready == True):
 

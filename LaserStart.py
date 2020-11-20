@@ -3,15 +3,15 @@ import time
 
 #show available ports
 print('Port list: ', Monaco.port_finder())
-
 #input device port
 port = input('input port: ')
 
-
+#Open port and check connection is secure
 laser = Monaco(Port_id = port, power = 10, pulse_freq = 10)
 laser.portID()
-laser.serial_test()
+laser.hello_laser()
 
 laser.start_up()
+
+#set continuous pulsing
 laser.activate_laser(0)
-laser.start_lasing()

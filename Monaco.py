@@ -72,7 +72,7 @@ class Monaco(SerialCommander):
 
         #Step 1 - Check Chillers Are On
         if self.chiller_status == '1':
-            print(np.dtype(self.chiller_status))
+            print('type: ', np.dtype(self.chiller_status))
             print('CHILLERS: ', self.chiller_status, ' OK \n')
         else:
             print ('CHILLERS: ', self.chiller_status, 'NOT ENABLED - TURN ON CHILLERS \n')

@@ -46,13 +46,13 @@ class Monaco(SerialCommander):
         self.pulse_status = self.query('?PC')
 
         #laser ready check - ready to turn on diodes
-        if self.key_status == 1 and self.shutter_position == 0 and self.chiller_status == 1:
+        if self.key_status == '1\r\n' and self.shutter_position == '0\r\n' and self.chiller_status == '1\r\n':
             self.laser_ready = True
         else:
             self.laser_ready = False
 
         #Diode Ready check - ready to open shutters and fire laser
-        if self.diode_status == 1 and self.pulse_status == 1:
+        if self.diode_status == '1\r\n' and self.pulse_status == '1\r\n':
             self.diode_ready = True
         else:
             self.diode_ready = False
@@ -71,14 +71,13 @@ class Monaco(SerialCommander):
         self.update_internal_states()
 
         #Step 1 - Check Chillers Are On
-        print('type: ', self.chiller_status)
-        if self.chiller_status == '1':
+        if self.chiller_status == '1\r\n':
             print('CHILLERS: ', self.chiller_status, ' OK \n')
         else:
             print ('CHILLERS: ', self.chiller_status, 'NOT ENABLED - TURN ON CHILLERS \n')
 
         #Step 2 - check keyswitch
-        if self.key_status == 1:
+        if self.key_status == '1\r\n':
             print('KEY STATUS: ', self.key_status, ' OK \n')
         else:
             print('KEY STATUS: ', self.key_status, ' KEY NOT TURNED ON \n')

@@ -86,7 +86,6 @@ class Monaco(SerialCommander):
         else:
             print('Bad Response')
 
-
         #Check for Faults
         faults_status = self.query('?F')
         print('FAULT STATUS: \n', faults_status)
@@ -131,19 +130,19 @@ class Monaco(SerialCommander):
             self.serial_write('RL=80')
 
             #Turn on diodes
-            if self.query('?S') == 0:
+            if self.query('?S') == '0\r\n':
                 self.serial_write('L=1')
-            elif self.query('?S') != 0:
+            elif self.query('?S') != '0\r\n':
                 self.serial_write('S=0')
                 self.serial_write('L=1')
             print('\n Warming Diodes \n')
 
             #wait for diodes to warm
             diode_ready = 'OFF'
-            while diode_ready != 'ON':
+            while diode_ready != 'On\r\n':
                 diode_ready = self.query('?ST')
                 print('Diode Status: ', diode_ready)
-                time.sleep(10)
+                time.sleep(20)
             print('\n')
 
         else:

@@ -44,7 +44,7 @@ class Monaco(SerialCommander):
         self.pulse_status = self.query('?PC')
 
         #laser ready check - ready to turn on diodes
-        if self.key_status == 1 and self.shutter_position == 0 and self.chiller_status = 1:
+        if self.key_status == 1 and self.shutter_position == 0 and self.chiller_status == 1:
             self.laser_ready = True
         else:
             self.laser_ready = False

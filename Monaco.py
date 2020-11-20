@@ -72,7 +72,7 @@ class Monaco(SerialCommander):
         if self.chiller_status == 1:
             print('CHILLERS: ', self.chiller_status, ' OK \n')
         else:
-            print 'CHILLERS: ', self.chiller_status, 'NOT ENABLED - TURN ON CHILLERS \n'
+            print ('CHILLERS: ', self.chiller_status, 'NOT ENABLED - TURN ON CHILLERS \n')
 
         #Step 2 - check keyswitch
         if self.key_status == 1:

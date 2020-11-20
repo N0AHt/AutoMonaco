@@ -40,7 +40,7 @@ class SerialCommander:
         command = string_input + '\r\n'
         command_encoded = command.encode('ascii')
         (self.port).write(command_encoded)
-        response = (self.port).readline()
+        #response = (self.port).readline()
 
     def query(self, string_input):
         self.serial_write(string_input)

@@ -7,8 +7,6 @@ from SerialCommander import SerialCommander
 import time
 import sys
 
-import numpy as np
-
 class Monaco(SerialCommander):
 
     def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 0, timeout = 5):

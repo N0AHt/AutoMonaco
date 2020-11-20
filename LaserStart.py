@@ -14,5 +14,5 @@ laser.hello_laser()
 
 laser.start_up()
 
-#set continuous pulsing
+#turn on diodes with continuous pulsing
 laser.activate_laser(0)

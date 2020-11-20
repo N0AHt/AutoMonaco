@@ -7,6 +7,8 @@ from SerialCommander import SerialCommander
 import time
 import sys
 
+import numpy as np
+
 class Monaco(SerialCommander):
 
     def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 0, timeout = 5):
@@ -69,7 +71,8 @@ class Monaco(SerialCommander):
         self.update_internal_states()
 
         #Step 1 - Check Chillers Are On
-        if self.chiller_status == 1:
+        if self.chiller_status == '1':
+            print(np.dtype(self.chiller_status))
             print('CHILLERS: ', self.chiller_status, ' OK \n')
         else:
             print ('CHILLERS: ', self.chiller_status, 'NOT ENABLED - TURN ON CHILLERS \n')

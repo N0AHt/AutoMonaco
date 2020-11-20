@@ -11,3 +11,4 @@ port = input('input port: ')
 laser = Monaco(Port_id = port, power = 10, pulse_freq = 10)
 
 laser.stop_lasing()
+laser.deactivate_laser()

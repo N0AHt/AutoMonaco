@@ -10,7 +10,6 @@ port = input('input port: ')
 
 #Open port and check connection is secure
 laser = Monaco(Port_id = port, power = 10, pulse_freq = 10)
-laser.portID()
 laser.hello_laser()
 
 laser.start_up()

@@ -72,15 +72,20 @@ class Monaco(SerialCommander):
 
         #Step 1 - Check Chillers Are On
         if self.chiller_status == '1\r\n':
-            print('CHILLERS: ', self.chiller_status, ' OK \n')
+            print('CHILLERS: ', self.chiller_status, 'OK \n')
+        elif self.chiller_status == '0\r\n':
+            print('CHILLERS: ', self.chiller_status, 'NOT ENABLED - TURN ON CHILLERS \n')
         else:
-            print ('CHILLERS: ', self.chiller_status, 'NOT ENABLED - TURN ON CHILLERS \n')
+            print('Bad Response')
 
         #Step 2 - check keyswitch
         if self.key_status == '1\r\n':
-            print('KEY STATUS: ', self.key_status, ' OK \n')
+            print('KEY STATUS: ', self.key_status, 'OK \n')
+        elif self.key_status == '0\r\n':
+            print('KEY STATUS: ', self.key_status, 'KEY NOT TURNED ON \n')
         else:
-            print('KEY STATUS: ', self.key_status, ' KEY NOT TURNED ON \n')
+            print('Bad Response')
+
 
         #Check for Faults
         faults_status = self.query('?F')
@@ -90,12 +95,16 @@ class Monaco(SerialCommander):
         print('WARNING STATUS: \n', warning_status)
 
         #Close Shutters
-        self.serial_write('S=0')
-        self.shutter_position = self.query('?S')
-        if self.shutter_position == 0:
-            print('Shutter Position: ', self.shutter_position, ' CLOSED')
+        if self.shutter_position == '0\r\n':
+            print('Shutter Position: ', self.shutter_position, 'CLOSED')
+        elif self.shutter_position == '1\r'n:
+            print('Shutter Position: ', self.shutter_position, 'OPEN')
+            self.serial_write('P=0')
         else:
-            print('Shutter Position: ', self.shutter_position, ' OPEN')
+            print('Bad Response')
+
+        #print laser ready
+        print('LASER READY: ', self.laser_ready)
 
         #Manual Confirmation
         laserCheck = input('\n !Confirm Laser Ready! [y/n] \n')

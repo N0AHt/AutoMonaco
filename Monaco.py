@@ -159,10 +159,11 @@ class Monaco(SerialCommander):
         else:
             print('LASER NOT READY')
 
-#essentially just closing the shutters
+            #essentially just closing the shutters
     def stop_lasing(self):
+        #code here
 
-#fully shuts down the laser
+    #fully shuts down the laser working?
     def deactivate_laser(self):
         #close the shutters
         self.serial_write('S=0')

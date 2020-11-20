@@ -161,6 +161,7 @@ class Monaco(SerialCommander):
 
             #essentially just closing the shutters
     def stop_lasing(self):
+        print('fake code')
         #code here
 
     #fully shuts down the laser working?

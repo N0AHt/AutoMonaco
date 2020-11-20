@@ -71,7 +71,7 @@ class Monaco(SerialCommander):
         self.update_internal_states()
 
         #Step 1 - Check Chillers Are On
-        print('type: ', np.dtype(self.chiller_status))
+        print('type: ', self.chiller_status)
         if self.chiller_status == '1':
             print('CHILLERS: ', self.chiller_status, ' OK \n')
         else:

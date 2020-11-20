@@ -143,6 +143,9 @@ class Monaco(SerialCommander):
                 time.sleep(20)
             print('\n')
 
+            #Turn on pulsing
+            self.serial_write('PC=1')
+
         else:
             print('LASER NOT READY - run start_up step')
             sys.exit()
@@ -159,8 +162,6 @@ class Monaco(SerialCommander):
                 sys.exit()
             else:
             #Run the Laser:
-                #turn on pulses
-                self.serial_write('PC=1')
                 #Open the shutters
                 self.serial_write('S=1')
         else:

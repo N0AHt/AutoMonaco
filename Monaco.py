@@ -105,7 +105,7 @@ class Monaco(SerialCommander):
 
         #Final Laser Checks
         print('LASER READY: ', self.laser_ready)
-        if self.laser_ready == 'False\r\n':
+        if self.laser_ready == False:
             sys.exit()
         else:
             #Manual Confirmation

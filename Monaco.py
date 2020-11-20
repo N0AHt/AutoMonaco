@@ -97,7 +97,7 @@ class Monaco(SerialCommander):
         #Close Shutters
         if self.shutter_position == '0\r\n':
             print('Shutter Position: ', self.shutter_position, 'CLOSED')
-        elif self.shutter_position == '1\r'n:
+        elif self.shutter_position == '1\r\n':
             print('Shutter Position: ', self.shutter_position, 'OPEN')
             self.serial_write('P=0')
         else:

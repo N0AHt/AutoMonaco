@@ -29,8 +29,8 @@ class Monaco(SerialCommander):
     #Quick test to make sure serial connection to laser works as expected
     #Gives basic info re the laser
     def hello_laser(self):
-        laser_model = self.query('?K')
-        print('Laser Model = ', laser_model, '\n')
+        laser_model = self.query('?LM')
+        print('Laser Model = ', laser_model)
 
         laser_temp = self.query('?BT')
         print('Laser temperature = ', laser_temp)

@@ -1,11 +1,10 @@
 from Monaco import Monaco
 import time
 
+laser = Monaco(Port_id = port, power = 10, pulse_freq = 10)
+RL_values = [10,20,30,40,50,60,70,80,90,100]
 
-retry = 'y'
-while retry == 'y':
-    laser.serial_write('S=1')
+for RL in Rl_values:
+    laser.start_lasing()
     time.sleep(10)
-    laser.serial_write('S=0')
-    laser.serial_write('RL=50')
-    retry = input('retry? [y/n]')
+    laser.stop_lasing()

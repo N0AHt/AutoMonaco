@@ -151,28 +151,29 @@ class Monaco(SerialCommander):
 
     #Actually projecting the laser beam - safety checks here too
     def start_lasing(self):
-        if (self.diodes_on == True) and (self.laser_ready == True):
-
-            #manual check
-            lasercheck2 = 'n'
-            while lasercheck2 != 'y':
-                lasercheck2 = input('Confirm Start Lasing [y/n] ')
-
-            #turn on pulses
-            self.serial_write('PC=1')
-
-            #Open the shutters
-            #self.serial_write('S=1')
-
-            #monitoring system during lasing?
-
+        self.update_internal_states()
+        if self.diode_ready == True and self.laser_ready == True:
+            #manual check:
+            lasercheck2 = input('Confirm Start Lasing [y/n] ')
+            if lasercheck2 != 'y':
+                sys.exit()
+            else:
+            #Run the Laser:
+                #turn on pulses
+                self.serial_write('PC=1')
+                #Open the shutters
+                self.serial_write('S=1')
         else:
             print('LASER NOT READY')
+            sys.exit()
 
-            #essentially just closing the shutters
+        self.update_internal_states()
+
+    #essentially just closing the shutters
     def stop_lasing(self):
-        print('fake code')
-        #code here
+        print('Closing Shutters')
+        self.serial_write('S=0')
+        self.update_internal_states()
 
     #fully shuts down the laser working?
     def deactivate_laser(self):

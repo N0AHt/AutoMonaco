@@ -103,13 +103,15 @@ class Monaco(SerialCommander):
         else:
             print('Bad Response')
 
-        #print laser ready
+        #Final Laser Checks
         print('LASER READY: ', self.laser_ready)
-
-        #Manual Confirmation
-        laserCheck = input('\n !Confirm Laser Ready! [y/n] \n')
-        if laserCheck != 'y':
+        if self.laser_ready == 'False\r\n':
             sys.exit()
+        else:
+            #Manual Confirmation
+            laserCheck = input('\n !Confirm Laser Ready! [y/n] \n')
+            if laserCheck != 'y':
+                sys.exit()
 
         #Update Laser States (mostly redundant)
         self.update_internal_states()

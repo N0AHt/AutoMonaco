@@ -1,3 +1,5 @@
+#start up for laser
+
 from Monaco import Monaco
 import time
 

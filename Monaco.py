@@ -5,7 +5,7 @@
 
 from SerialCommander import SerialCommander
 import time
-import system as sys
+import sys
 
 class Monaco(SerialCommander):
 

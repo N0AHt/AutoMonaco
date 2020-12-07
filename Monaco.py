@@ -177,14 +177,23 @@ class Monaco(SerialCommander):
 
         self.update_internal_states()
 
-    def set_parameters(self, power = self.power, pulse_freq = self.pulse_freq):
+    def set_parameters(self, power = None, pulse_freq = None):
         #update internal parameter values
-        self.power = power
-        self.pulse_freq = pulse_freq
+        if power = None:
+            power = self.power
+        else:
+            self.power = power
+
+        if pulse_freq = None:
+            pulse_freq = self.pulse_freq
+        else self.pulse_freq = pulse_freq
 
         #set power
         power_command = 'RL=' + str(self.power)
         self.serial_write(power_command)
+
+        #set pulse_freq
+        #freq_command = ''
 
         self.update_internal_states()
 

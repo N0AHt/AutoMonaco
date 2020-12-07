@@ -177,6 +177,7 @@ class Monaco(SerialCommander):
 
         self.update_internal_states()
 
+#this is broken since adding set funtion...
     def set_parameters(self, power = None, pulse_freq = None):
         #update internal parameter values
         if power == None:

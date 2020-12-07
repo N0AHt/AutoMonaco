@@ -181,6 +181,7 @@ class Monaco(SerialCommander):
     def stop_lasing(self):
         print('Closing Shutters')
         self.serial_write('S=0')
+        time.sleep(2)
         self.update_internal_states()
 
     #fully shuts down the laser working?

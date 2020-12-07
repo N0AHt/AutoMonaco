@@ -62,7 +62,7 @@ class Monaco(SerialCommander):
         print('Shutter Position: ', self.shutter_position)
         print('Chiller Stat: ', self.chiller_status)
         print('Diode Status: ', self.diode_status)
-        print('Pulse Mode: ', seld.pulse_mode)
+        print('Pulse Mode: ', self.pulse_mode)
         print('Pulse Stat: ', self.pulse_status)
         print('diode ready: ', self.diode_ready)
         print('laser ready: ', self.laser_ready)

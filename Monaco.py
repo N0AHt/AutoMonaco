@@ -179,12 +179,12 @@ class Monaco(SerialCommander):
 
     def set_parameters(self, power = None, pulse_freq = None):
         #update internal parameter values
-        if power = None:
+        if power == None:
             power = self.power
         else:
             self.power = power
 
-        if pulse_freq = None:
+        if pulse_freq == None:
             pulse_freq = self.pulse_freq
         else self.pulse_freq = pulse_freq
 

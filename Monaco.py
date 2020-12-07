@@ -186,7 +186,8 @@ class Monaco(SerialCommander):
 
         if pulse_freq == None:
             pulse_freq = self.pulse_freq
-        else self.pulse_freq = pulse_freq
+        else:
+             self.pulse_freq = pulse_freq
 
         #set power
         power_command = 'RL=' + str(self.power)

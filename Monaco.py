@@ -9,7 +9,7 @@ import sys
 
 class Monaco(SerialCommander):
 
-    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 0, timeout = 5):
+    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 1000, timeout = 5):
 
         super().__init__(Port_id, baudrate, timeout)
 
@@ -193,8 +193,9 @@ class Monaco(SerialCommander):
         power_command = 'RL=' + str(self.power)
         self.serial_write(power_command)
 
-        #set pulse_freq
-        #freq_command = ''
+        #set pulse_freq (in Hz)
+        #set can also be used to change other parameters
+        freq_command = 'SET = 1000'
 
         self.update_internal_states()
 

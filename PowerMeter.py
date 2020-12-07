@@ -1,6 +1,8 @@
 #Code to control thorlabs powermeter remotely
 #Noah telerman 2020
 
+import visa
+
 class PowerMeter():
     def __init__(wavelength):
 
@@ -12,4 +14,3 @@ class PowerMeter():
         return power_output
 
     def SetWavelength():
-        

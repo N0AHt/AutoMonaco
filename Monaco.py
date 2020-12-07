@@ -55,10 +55,17 @@ class Monaco(SerialCommander):
         else:
             self.diode_ready = False
 
-    # def status_report(self):
-    #     self.update_internal_states()
-    #     #display results
-    #     print('KEY STATUS: ')
+    def status_report(self):
+        self.update_internal_states()
+        #display results
+        print('KEY STATUS: ', self.key_status)
+        print('Shutter Position: ', self.shutter_position)
+        print('Chiller Stat: ', self.chiller_status)
+        print('Diode Status: ', self.diode_status)
+        print('Pulse Mode: ', seld.pulse_mode)
+        print('Pulse Stat: ', self.pulse_status)
+        print('diode ready: ', self.diode_ready)
+        print('laser ready: ', self.laser_ready)
 
     #Pre-flight checks
     def start_up(self):

@@ -12,6 +12,8 @@ for RR in RepRates:
     #laser.status_report()
     laser.set_parameters(power = 80, pulse_freq = RR)
     print(laser.pulse_freq)
+    print('diode: ', laser.diode_ready)
+    print('laser: ', laser.laser_ready)
     laser.start_lasing()
     time.sleep(10)
     laser.stop_lasing()

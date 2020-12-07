@@ -177,6 +177,18 @@ class Monaco(SerialCommander):
 
         self.update_internal_states()
 
+    def set_parameters(self, power = self.power, pulse_freq = self.pulse_freq):
+        #update internal parameter values
+        self.power = power
+        self.pulse_freq = pulse_freq
+
+        #set power
+        power_command = 'RL=' + str(self.power)
+        self.serial_write(power_command)
+
+        self.update_internal_states()
+
+
     #essentially just closing the shutters
     def stop_lasing(self):
         print('Closing Shutters')
@@ -212,19 +224,3 @@ class Monaco(SerialCommander):
     #
     #     #close port
     #     self.closePort()
-    #
-    #
-    # def set_parameters(self, power = self.power, pulse_freq = self.pulse_freq, wavelength = self.wavelength):
-    #     #update internal parameter values
-    #     self.power = power
-    #     self.pulse_freq = pulse_freq
-    #     self.wavelength = wavelength
-    #
-    #     #set power
-    #     self.write()
-    #
-    #     #set freq
-    #     self.write()
-    #
-    #     #set wavelength
-    #     self.write()

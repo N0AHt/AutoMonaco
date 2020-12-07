@@ -42,11 +42,11 @@ class SerialCommander:
         (self.port).write(command_encoded)
         #automatic laser response must be read ! Or else...
         response = self.serial_read()
+        return response
 
     def query(self, string_input):
-        self.serial_write(string_input)
-        output = self.serial_read()
-        return output
+        response = self.serial_write(string_input)
+        return response
 
     def portID(self):
         print(self.port)

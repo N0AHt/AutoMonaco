@@ -3,7 +3,7 @@ import time
 
 port = 'com1'
 laser = Monaco(Port_id = port, power = 10, pulse_freq = 10)
-RL_values = [10,20,30,40,50,60,70,80,90,100]
+RL_values = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
 
 
 

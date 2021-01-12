@@ -50,6 +50,7 @@ class SerialCommander:
 
     def query(self, string_input):
         response = self.serial_write(string_input)
+        print('1: ', response)
         response = self.remove_EOF(response)
         return response
 

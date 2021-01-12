@@ -37,6 +37,7 @@ class SerialCommander:
 
     def remove_EOF(self, decoded_string):
         output = decoded_string.rstrip()
+        return output
 
 #needs updating! need to wait for the carriage return from the laser after commands
     def serial_write(self, string_input):

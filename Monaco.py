@@ -50,7 +50,7 @@ class Monaco(SerialCommander):
             self.laser_ready = False
 
         #Diode Ready check - ready to open shutters and fire laser
-        if self.diode_status == 'O' and self.pulse_status == '1':
+        if self.diode_status == 'On' and self.pulse_status == '1':
             self.diode_ready = True
         else:
             self.diode_ready = False

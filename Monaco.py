@@ -131,8 +131,9 @@ class Monaco(SerialCommander):
             self.serial_write(pulse_mode)
             print('Pulse Mode: ', self.query('?PM'))
 
-            #should update to use the self.power attribute at some point
-            self.serial_write('RL=80')
+            #set power
+            power_command = 'RL=' + str(self.power)
+            self.serial_write(power_command)
 
             #Turn on diodes
             if self.query('?S') == '0':

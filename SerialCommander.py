@@ -29,7 +29,7 @@ class SerialCommander:
     def check_open(self):
         return (self.port).is_open
 
-#should exclude the \r\n at the end of return values here
+#should exclude the \r\n at the end of return values here - done, later on
     def serial_read(self):
         line = (self.port).readline()
         input_decoded = line.decode('ascii')

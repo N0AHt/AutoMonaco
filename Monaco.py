@@ -196,8 +196,8 @@ class Monaco(SerialCommander):
 
         #set pulse_freq (in Hz)
         #set can also be used to change other parameters
-        freq_command = 'SET=' + str(self.pulse_freq)
-        self.serial_write(freq_command)
+        #freq_command = 'SET=' + str(self.pulse_freq)
+        #self.serial_write(freq_command)
 
         self.update_internal_states()
 

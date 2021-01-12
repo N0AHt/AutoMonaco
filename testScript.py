@@ -11,7 +11,7 @@ for RL in RL_values:
 
     laser.status_report()
     laser.set_parameters(power = RL)
-    print(laser.power)
+    print('POWER: ',laser.power)
     laser.start_lasing()
     time.sleep(10)
     laser.stop_lasing()

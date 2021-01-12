@@ -145,7 +145,7 @@ class Monaco(SerialCommander):
 
             #wait for diodes to warm
             diode_ready = 'OFF'
-            while diode_ready != 'On\r\n':
+            while diode_ready != 'On':
                 diode_ready = self.query('?ST')
                 print('Diode Status: ', diode_ready)
                 time.sleep(20)
@@ -178,7 +178,7 @@ class Monaco(SerialCommander):
 
         self.update_internal_states()
 
-#this is broken since adding set funtion...
+    #this is broken since adding set funtion...
     def set_parameters(self, power = None, pulse_freq = None):
         #update internal parameter values
         if power == None:

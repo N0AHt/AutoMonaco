@@ -28,21 +28,25 @@ class SerialCommander:
     def check_open(self):
         return (self.port).is_open
 
+#should exclude the \r\n at the end of return values here
     def serial_read(self):
         line = (self.port).readline()
         input_decoded = line.decode('ascii')
         return input_decoded
 
+#needs updating! need to wait for the carriage return from the laser after commands
     def serial_write(self, string_input):
         #add new line token to signal end of command
         command = string_input + '\r\n'
         command_encoded = command.encode('ascii')
         (self.port).write(command_encoded)
+        #automatic laser response must be read ! Or else...
+        response = self.serial_read()
+        return response
 
     def query(self, string_input):
-        self.serial_write(string_input)
-        output = self.serial_read()
-        return output
+        response = self.serial_write(string_input)
+        return response
 
     def portID(self):
         print(self.port)

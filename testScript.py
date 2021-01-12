@@ -1,27 +1,17 @@
 from Monaco import Monaco
 import time
 
-#show available ports
-print('Port list: ', Monaco.port_finder())
-
-#input device port
-port = input('input port: ')
-
-
+port = 'com1'
 laser = Monaco(Port_id = port, power = 10, pulse_freq = 10)
-laser.portID()
-laser.serial_test()
+RL_values = [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
 
-laser.start_up()
-laser.activate_laser(0)
-laser.start_lasing()
 
-retry = 'y'
-while retry == 'y':
-    laser.serial_write('S=1')
+
+for RL in RL_values:
+
+    laser.status_report()
+    laser.set_parameters(power = RL)
+    print('POWER: ',laser.power)
+    laser.start_lasing()
     time.sleep(10)
-    laser.serial_write('S=0')
-    laser.serial_write('RL=50')
-    retry = input('retry? [y/n]')
-
-laser.stop_lasing()
+    laser.stop_lasing()

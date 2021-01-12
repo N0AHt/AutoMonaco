@@ -9,7 +9,7 @@ import sys
 
 class Monaco(SerialCommander):
 
-    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 1000, timeout = 5, EOF_string):
+    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 1000, timeout = 5, EOF_string = '\r\n'):
 
         super().__init__(Port_id, baudrate, timeout, EOF_string)
 
@@ -44,13 +44,13 @@ class Monaco(SerialCommander):
         self.pulse_status = self.query('?PC')
 
         #laser ready check - ready to turn on diodes
-        if self.key_status == '1\r\n' and self.shutter_position == '0\r\n' and self.chiller_status == '1\r\n':
+        if self.key_status == '1' and self.shutter_position == '0' and self.chiller_status == '1':
             self.laser_ready = True
         else:
             self.laser_ready = False
 
         #Diode Ready check - ready to open shutters and fire laser
-        if self.diode_status == 'On\r\n' and self.pulse_status == '1\r\n':
+        if self.diode_status == 'O' and self.pulse_status == '1':
             self.diode_ready = True
         else:
             self.diode_ready = False
@@ -76,17 +76,17 @@ class Monaco(SerialCommander):
         self.update_internal_states()
 
         #Step 1 - Check Chillers Are On
-        if self.chiller_status == '1\r\n':
+        if self.chiller_status == '1':
             print('CHILLERS: ', self.chiller_status, 'OK \n')
-        elif self.chiller_status == '0\r\n':
+        elif self.chiller_status == '0':
             print('CHILLERS: ', self.chiller_status, 'NOT ENABLED - TURN ON CHILLERS \n')
         else:
             print('Bad Response')
 
         #Step 2 - check keyswitch
-        if self.key_status == '1\r\n':
+        if self.key_status == '1':
             print('KEY STATUS: ', self.key_status, 'OK \n')
-        elif self.key_status == '0\r\n':
+        elif self.key_status == '0':
             print('KEY STATUS: ', self.key_status, 'KEY NOT TURNED ON \n')
         else:
             print('Bad Response')
@@ -99,9 +99,9 @@ class Monaco(SerialCommander):
         print('WARNING STATUS: \n', warning_status)
 
         #Close Shutters
-        if self.shutter_position == '0\r\n':
+        if self.shutter_position == '0':
             print('Shutter Position: ', self.shutter_position, 'CLOSED')
-        elif self.shutter_position == '1\r\n':
+        elif self.shutter_position == '1':
             print('Shutter Position: ', self.shutter_position, 'OPEN')
             self.serial_write('P=0')
         else:
@@ -135,9 +135,9 @@ class Monaco(SerialCommander):
             self.serial_write('RL=80')
 
             #Turn on diodes
-            if self.query('?S') == '0\r\n':
+            if self.query('?S') == '0':
                 self.serial_write('L=1')
-            elif self.query('?S') != '0\r\n':
+            elif self.query('?S') != '0':
                 self.serial_write('S=0')
                 self.serial_write('L=1')
             print('\n Warming Diodes \n')

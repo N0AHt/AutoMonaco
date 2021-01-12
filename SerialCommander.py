@@ -18,7 +18,7 @@ class SerialCommander:
         self.baudrate = baudrate
         self.timeout = timeout
         self.port = serial.Serial(port = Port_id, baudrate = baudrate, timeout = timeout)
-        self.EOF = EOF_string.encode('ascii')
+        self.EOF = EOF_string
 
     def openPort(self):
         (self.port).open()
@@ -35,19 +35,22 @@ class SerialCommander:
         input_decoded = line.decode('ascii')
         return input_decoded
 
+    def remove_EOF(self, decoded_string):
+        output = decoded_string.replace('\r\n', '')
+
 #needs updating! need to wait for the carriage return from the laser after commands
     def serial_write(self, string_input):
         #add new line token to signal end of command
-        command = string_input + '\r\n'
+        command = string_input + EOF
         command_encoded = command.encode('ascii')
         (self.port).write(command_encoded)
         #automatic laser response must be read ! Or else...
         response = self.serial_read()
-        if response =
         return response
 
     def query(self, string_input):
         response = self.serial_write(string_input)
+        response = self.remove_EOF(response)
         return response
 
     def portID(self):

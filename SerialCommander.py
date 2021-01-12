@@ -36,12 +36,12 @@ class SerialCommander:
         return input_decoded
 
     def remove_EOF(self, decoded_string):
-        output = decoded_string.replace('\r\n', '')
+        output = decoded_string.replace(self.EOF, '')
 
 #needs updating! need to wait for the carriage return from the laser after commands
     def serial_write(self, string_input):
         #add new line token to signal end of command
-        command = string_input + EOF
+        command = string_input + self.EOF
         command_encoded = command.encode('ascii')
         (self.port).write(command_encoded)
         #automatic laser response must be read ! Or else...

@@ -9,9 +9,9 @@ import sys
 
 class Monaco(SerialCommander):
 
-    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 1000, timeout = 5):
+    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 1000, timeout = 5, EOF_string):
 
-        super().__init__(Port_id, baudrate, timeout)
+        super().__init__(Port_id, baudrate, timeout, EOF_string)
 
         self.power = power
         self.pulse_freq = pulse_freq

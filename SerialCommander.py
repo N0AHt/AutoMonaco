@@ -13,11 +13,12 @@ from serial.tools import list_ports
 
 class SerialCommander:
 
-    def __init__(self, Port_id, baudrate, timeout):
+    def __init__(self, Port_id, baudrate, timeout, EOF_string):
         self.port_id = Port_id
         self.baudrate = baudrate
         self.timeout = timeout
         self.port = serial.Serial(port = Port_id, baudrate = baudrate, timeout = timeout)
+        self.EOF = EOF_string.encode('ascii')
 
     def openPort(self):
         (self.port).open()
@@ -42,6 +43,7 @@ class SerialCommander:
         (self.port).write(command_encoded)
         #automatic laser response must be read ! Or else...
         response = self.serial_read()
+        if response =
         return response
 
     def query(self, string_input):

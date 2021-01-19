@@ -93,10 +93,10 @@ class Monaco(SerialCommander):
 
         #Check for Faults
         faults_status = self.query('?F')
-        print('FAULT STATUS: \n', faults_status)
+        print('FAULT STATUS: ', faults_status)
         #check for warnings
         warning_status = self.query('?W')
-        print('WARNING STATUS: \n', warning_status)
+        print('WARNING STATUS: ', warning_status)
 
         #Close Shutters
         if self.shutter_position == '0':
@@ -200,6 +200,7 @@ class Monaco(SerialCommander):
         #set can also be used to change other parameters
         freq_command = 'SET=' + str(self.pulse_freq)
         self.serial_write(freq_command)
+        null = self.serial_read()
 
         self.update_internal_states()
 

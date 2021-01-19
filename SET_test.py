@@ -12,6 +12,7 @@ for MRR in RepRate_values:
 
     laser.status_report()
     laser.set_parameters(pulse_freq = MRR)
+    laser.status_report()
     print('FREQUENCY: ',laser.pulse_freq)
     laser.start_lasing()
     time.sleep(10)

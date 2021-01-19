@@ -13,11 +13,12 @@ from serial.tools import list_ports
 
 class SerialCommander:
 
-    def __init__(self, Port_id, baudrate, timeout):
+    def __init__(self, Port_id, baudrate, timeout, EOF_string):
         self.port_id = Port_id
         self.baudrate = baudrate
         self.timeout = timeout
         self.port = serial.Serial(port = Port_id, baudrate = baudrate, timeout = timeout)
+        self.EOF = EOF_string
 
     def openPort(self):
         (self.port).open()
@@ -28,16 +29,20 @@ class SerialCommander:
     def check_open(self):
         return (self.port).is_open
 
-#should exclude the \r\n at the end of return values here
+#should exclude the \r\n at the end of return values here - done, later on
     def serial_read(self):
         line = (self.port).readline()
         input_decoded = line.decode('ascii')
         return input_decoded
 
+    def remove_EOF(self, decoded_string):
+        output = decoded_string.rstrip()
+        return output
+
 #needs updating! need to wait for the carriage return from the laser after commands
     def serial_write(self, string_input):
         #add new line token to signal end of command
-        command = string_input + '\r\n'
+        command = string_input + self.EOF
         command_encoded = command.encode('ascii')
         (self.port).write(command_encoded)
         #automatic laser response must be read ! Or else...
@@ -46,6 +51,7 @@ class SerialCommander:
 
     def query(self, string_input):
         response = self.serial_write(string_input)
+        response = self.remove_EOF(response)
         return response
 
     def portID(self):

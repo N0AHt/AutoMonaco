@@ -202,7 +202,7 @@ class Monaco(SerialCommander):
         #every line needs to be read to clear the stack for status reports to work
         freq_command = 'SET=' + str(self.pulse_freq) + ',300,1,1'
         print(freq_command)
-        self.serial_write(freq_command)
+        print(self.serial_write(freq_command))
 
         null = self.serial_read()
         while null != self.EOF:

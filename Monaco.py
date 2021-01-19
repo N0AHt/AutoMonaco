@@ -241,6 +241,8 @@ class Monaco(SerialCommander):
 
         self.diodes_on = False
 
+        self.closePort()
+
 
     # def power_off(self):
     #     #protocol for turning off the laser

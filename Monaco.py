@@ -204,14 +204,14 @@ class Monaco(SerialCommander):
         print(freq_command)
         print(self.serial_write(freq_command))
 
-        null = self.serial_read()
-        while null != self.EOF:
-            null = self.serial_read()
-
-        #brute force clearing of stack
-        for i in range(9):
-            crap = self.serial_read()
-            print(repr(crap))
+        # null = self.serial_read()
+        # while null != self.EOF:
+        #     null = self.serial_read()
+        #
+        # #brute force clearing of stack
+        # for i in range(9):
+        #     crap = self.serial_read()
+        #     print(repr(crap))
 
 
         self.update_internal_states()

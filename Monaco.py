@@ -202,7 +202,7 @@ class Monaco(SerialCommander):
         self.serial_write(freq_command)
 
         null = self.serial_read()
-        while null != self.EOF_string
+        while null != self.EOF_string:
             self.serial_read()
 
         self.update_internal_states()

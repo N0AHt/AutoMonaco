@@ -203,7 +203,9 @@ class Monaco(SerialCommander):
 
         null = self.serial_read()
         while null != self.EOF:
-            self.serial_read()
+            null = self.serial_read()
+            print(repr(null))
+
 
         self.update_internal_states()
 

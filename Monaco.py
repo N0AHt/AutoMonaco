@@ -207,6 +207,8 @@ class Monaco(SerialCommander):
     def stop_lasing(self):
         print('Closing Shutters')
         self.serial_write('S=0')
+        #should wait for crriage return here instead of using sleep
+        #(should really do that for all write functions - implement in serial commander)
         time.sleep(2)
         self.update_internal_states()
 

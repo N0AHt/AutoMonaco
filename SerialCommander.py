@@ -29,7 +29,6 @@ class SerialCommander:
     def check_open(self):
         return (self.port).is_open
 
-#should exclude the \r\n at the end of return values here - done, later on
     def serial_read(self):
         line = (self.port).readline()
         input_decoded = line.decode('ascii')
@@ -38,6 +37,12 @@ class SerialCommander:
     def remove_EOF(self, decoded_string):
         output = decoded_string.rstrip()
         return output
+
+    def wait_for_EOF(self):
+        response = self.serial_read()
+        while (response != self.EOF)
+            response = self.serial_read()
+        return response
 
 #needs updating! need to wait for the carriage return from the laser after commands
     def serial_write(self, string_input):

@@ -203,15 +203,15 @@ class Monaco(SerialCommander):
         freq_command = 'SET=' + str(self.pulse_freq) + ',,,2'
         print(freq_command)
         print(self.serial_write(freq_command))
-        self.wait_for_EOF()
+        #self.wait_for_EOF()
         # null = self.serial_read()
         # while null != self.EOF:
         #     null = self.serial_read()
 
         #brute force clearing of stack
-        # for i in range(9):
-        #     crap = self.serial_read()
-        #     print(repr(crap))
+        for i in range(9):
+            crap = self.serial_read()
+            print(repr(crap))
 
 
         self.update_internal_states()

@@ -199,22 +199,10 @@ class Monaco(SerialCommander):
         self.serial_write(power_command)
 
         #set pulse_freq (in kHz) (amplifier rep rate)
-        #NOTE: this must be a value selected from the drop down menu
-        #set can also be used to change other parameters
-        #SET is a nightmare command that returns an entire paragraph of info
-        #every line needs to be read to clear the stack for status reports to work
+        #NOTE: this must be a value selected from the drop down menu with compatible no. of microbursts
+        #SET can also be used to change other parameters
         freq_command = 'SET=' + str(self.pulse_freq) + ',,,' + str(self.MRR_dictionary[self.pulse_freq])
-        print(freq_command)
-        print(self.serial_write(freq_command))
-        #self.wait_for_EOF()
-        # null = self.serial_read()
-        # while null != self.EOF:
-        #     null = self.serial_read()
-
-        #brute force clearing of stack
-        for i in range(9):
-            crap = self.serial_read()
-            print(repr(crap))
+        self.serial_write(freq_command)
 
 
         self.update_internal_states()

@@ -16,6 +16,9 @@ class Monaco(SerialCommander):
         self.power = power
         self.pulse_freq = pulse_freq
 
+        #dictionary of amplifier rep rates with accepted corresponding no. of microbursts
+        self.MRR_dictionary = {1000:1, 500:2, 330:3, 250:4, 200:5}
+
         #internal checks - find out the current state of the laser
         self.update_internal_states()
 
@@ -93,10 +96,10 @@ class Monaco(SerialCommander):
 
         #Check for Faults
         faults_status = self.query('?F')
-        print('FAULT STATUS: \n', faults_status)
+        print('FAULT STATUS: ', faults_status)
         #check for warnings
         warning_status = self.query('?W')
-        print('WARNING STATUS: \n', warning_status)
+        print('WARNING STATUS: ', warning_status)
 
         #Close Shutters
         if self.shutter_position == '0':
@@ -195,10 +198,17 @@ class Monaco(SerialCommander):
         power_command = 'RL=' + str(self.power)
         self.serial_write(power_command)
 
-        #set pulse_freq (in Hz)
-        #set can also be used to change other parameters
-        #freq_command = 'SET=' + str(self.pulse_freq)
-        #self.serial_write(freq_command)
+        #set pulse_freq (in kHz) (amplifier rep rate)
+        #NOTE: this must be a value selected from the drop down menu with compatible no. of microbursts
+        #SET can also be used to change other parameters
+        freq_command = 'SET=' + str(self.pulse_freq) + ',,,' + str(self.MRR_dictionary[self.pulse_freq])
+        self.serial_write(freq_command)
+
+        #wait until diode is ready
+        self.update_internal_states()
+        while self.diode_ready != True:
+            time.sleep(2)
+            self.update_internal_states()
 
         self.update_internal_states()
 
@@ -226,6 +236,8 @@ class Monaco(SerialCommander):
         print(laser_cool)
 
         self.diodes_on = False
+
+        self.closePort()
 
 
     # def power_off(self):

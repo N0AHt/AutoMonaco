@@ -16,6 +16,9 @@ class Monaco(SerialCommander):
         self.power = power
         self.pulse_freq = pulse_freq
 
+        #dictionary of amplifier rep rates with accepted corresponding no. of microbursts
+        self.MRR_dictionary = {1000:1, 500:2, 330:3, 250:4, 200:5}
+
         #internal checks - find out the current state of the laser
         self.update_internal_states()
 
@@ -200,7 +203,7 @@ class Monaco(SerialCommander):
         #set can also be used to change other parameters
         #SET is a nightmare command that returns an entire paragraph of info
         #every line needs to be read to clear the stack for status reports to work
-        freq_command = 'SET=' + str(self.pulse_freq) + ',,,2'
+        freq_command = 'SET=' + str(self.pulse_freq) + ',,,' + self.MRR_dictionary([self.pulse_freq])
         print(freq_command)
         print(self.serial_write(freq_command))
         #self.wait_for_EOF()

@@ -2,7 +2,7 @@ from Monaco import Monaco
 import time
 
 port = 'com1'
-laser = Monaco(Port_id = port, power = 10, pulse_freq = 200)
+laser = Monaco(Port_id = port, power = 10, pulse_freq = 1000)
 
 #values in kHz - Need to update no. microbusts too!!
 RepRate_values = [1000, 500, 330, 250, 200]

@@ -200,7 +200,7 @@ class Monaco(SerialCommander):
         #set can also be used to change other parameters
         #SET is a nightmare command that returns an entire paragraph of info
         #every line needs to be read to clear the stack for status reports to work
-        freq_command = 'SET=' + str(self.pulse_freq) + ',,,1'
+        freq_command = 'SET=' + str(self.pulse_freq) + ',,,2'
         print(freq_command)
         print(self.serial_write(freq_command))
         #self.wait_for_EOF()

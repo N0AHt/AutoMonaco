@@ -4,8 +4,8 @@ import time
 port = 'com1'
 laser = Monaco(Port_id = port, power = 10, pulse_freq = 200)
 
-#values in kHz
-RepRate_values = [1000, 2000, 4000, 10000, 50000]
+#values in kHz - USING WRONG MENU
+RepRate_values = [1000, 500, 330, 250, 200]
 
 
 for MRR in RepRate_values:

@@ -40,7 +40,7 @@ class SerialCommander:
 
     def wait_for_EOF(self):
         response = self.serial_read()
-        while (response != self.EOF)
+        while (response != self.EOF):
             response = self.serial_read()
         return response
 

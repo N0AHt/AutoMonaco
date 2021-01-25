@@ -9,12 +9,15 @@ import sys
 
 class Monaco(SerialCommander):
 
-    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 1000, timeout = 5, EOF_string = '\r\n'):
+    def __init__(self, Port_id, baudrate = 19200, power = 80, pulse_freq = 1000, pulse_width = 400, RepRateDivisor = 1, PulsesPerMicroburst = 1, timeout = 5, EOF_string = '\r\n'):
 
         super().__init__(Port_id, baudrate, timeout, EOF_string)
 
         self.power = power
         self.pulse_freq = pulse_freq
+        self.pulse_width = pulse_width
+        self.RepRateDivisor = RepRateDivisor
+        self.PulsesPerMicroburst = PulsesPerMicroburst
 
         #dictionary of amplifier rep rates with accepted corresponding no. of microbursts
         self.MRR_dictionary = {1000:1, 500:2, 330:3, 250:4, 200:5}
@@ -182,7 +185,7 @@ class Monaco(SerialCommander):
         self.update_internal_states()
 
     #this is broken since adding set funtion...
-    def set_parameters(self, power = None, pulse_freq = None):
+    def set_parameters(self, power = None, pulse_freq = None, RRD = None, pulse_width = None, Bursts = None):
         #update internal parameter values
         if power == None:
             power = self.power
@@ -194,6 +197,21 @@ class Monaco(SerialCommander):
         else:
              self.pulse_freq = pulse_freq
 
+        if pulse_width == None:
+            pulse_width = self.pulse_width
+        else:
+             self.pulse_width = pulse_width
+
+        if RRD == None:
+            RRD = self.RepRateDivisor
+        else:
+             self.RepRateDivisor = RRD
+
+        if Bursts = None:
+            Bursts = self.PulsesPerMicroburst
+        else:
+            self.PulsesPerMicroburst = Bursts
+
         #set power
         power_command = 'RL=' + str(self.power)
         self.serial_write(power_command)
@@ -201,7 +219,7 @@ class Monaco(SerialCommander):
         #set pulse_freq (in kHz) (amplifier rep rate)
         #NOTE: this must be a value selected from the drop down menu with compatible no. of microbursts
         #SET can also be used to change other parameters
-        freq_command = 'SET=' + str(self.pulse_freq) + ',,,' + str(self.MRR_dictionary[self.pulse_freq])
+        freq_command = 'SET=' + str(self.pulse_freq) + ',' + str(self.pulse_width) + ',' + str(self.RepRateDivisor) + ',' + str(self.MRR_dictionary[self.pulse_freq])
         self.serial_write(freq_command)
 
         #wait until diode is ready

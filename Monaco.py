@@ -207,10 +207,10 @@ class Monaco(SerialCommander):
         else:
              self.RepRateDivisor = RRD
 
-        if Bursts = None:
-            Bursts = self.PulsesPerMicroburst
-        else:
-            self.PulsesPerMicroburst = Bursts
+        # if Bursts = None:
+        #     Bursts = self.PulsesPerMicroburst
+        # else:
+        #     self.PulsesPerMicroburst = Bursts
 
         #set power
         power_command = 'RL=' + str(self.power)

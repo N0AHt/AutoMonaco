@@ -49,7 +49,7 @@ class SerialCommander:
         output = 0
         while output != '':
             output = self.serial_read()
-            print(output)
+            print((repr(output))
         return 0
 
 #needs updating! need to wait for the carriage return from the laser after commands

@@ -229,6 +229,7 @@ class Monaco(SerialCommander):
         while self.diode_ready != True:
             time.sleep(2)
             self.update_internal_states()
+            self.status_report()
 
         self.update_internal_states()
 

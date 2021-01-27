@@ -64,7 +64,7 @@ class SerialCommander:
         #automatic laser response must be read ! Or else...
         response = self.serial_read()
         #clear stack
-        self.ReadStack()
+        #self.ReadStack()
         return response
 
     def query(self, string_input):

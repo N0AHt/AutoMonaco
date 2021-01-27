@@ -46,11 +46,11 @@ class SerialCommander:
 
     def ReadStack(self):
         #reads all lines in stack - for handling multi-line errors
-        output = 0
+        output = self.serial_read()
         blankline = repr('')
         while output != blankline:
-            output = self.serial_read()
             print('output: ', (repr(output)))
+            output = self.serial_read()
             print('blank: ', blankline)
         return 0
 

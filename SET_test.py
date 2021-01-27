@@ -5,7 +5,7 @@ port = 'com1'
 laser = Monaco(Port_id = port, power = 10, pulse_freq = 1000)
 
 #values in kHz - Need to update no. microbusts too!!
-divider_values = range(1,10)
+divider_values = list(range(1,10))
 print(divider_values)
 
 

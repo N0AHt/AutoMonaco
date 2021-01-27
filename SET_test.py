@@ -10,7 +10,7 @@ divider_values = range(1,10)
 
 for RRD in divider_values:
 
-    laser.set_parameters(divider = RRD)
+    laser.set_parameters(RRD = RRD)
     laser.status_report()
     print('Frequence: ',(laser.pulse_freq/RRD))
     laser.start_lasing()

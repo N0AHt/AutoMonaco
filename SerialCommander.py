@@ -60,6 +60,8 @@ class SerialCommander:
         (self.port).write(command_encoded)
         #automatic laser response must be read ! Or else...
         response = self.serial_read()
+        #clear stack
+        self.ReadStack()
         return response
 
     def query(self, string_input):

@@ -222,7 +222,7 @@ class Monaco(SerialCommander):
         #SET can also be used to change other parameters
         freq_command = 'SET=' + str(self.pulse_freq) + ',' + str(self.pulse_width) + ',' + str(self.RepRateDivisor) + ',' + str(self.MRR_dictionary[self.pulse_freq])
         print('SET: ', freq_command)
-        self.serial_write(freq_command)
+        print(self.serial_write(freq_command))
 
         #wait until diode is ready
         self.update_internal_states()

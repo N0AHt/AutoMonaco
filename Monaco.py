@@ -135,6 +135,8 @@ class Monaco(SerialCommander):
             #set pulse mode - should add a valueSet function to serial commander to handle this concatonation
             pulse_mode = 'PM=' + str(pulsemode)
             self.serial_write(pulse_mode)
+            self.serial_read()
+            self.serial_read()
             print('Pulse Mode: ', self.query('?PM'))
 
             #set power

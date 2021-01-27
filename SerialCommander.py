@@ -47,11 +47,12 @@ class SerialCommander:
     def ReadStack(self):
         #reads all lines in stack - for handling multi-line errors
         output = self.serial_read()
-        blankline = repr('')
+        blankline = ''
         while output != blankline:
             print('output: ', (repr(output)))
             output = self.serial_read()
-            print('blank: ', blankline)
+            print('blank: ', repr(blankline))
+            print (blankline==putput)
         return 0
 
 #needs updating! need to wait for the carriage return from the laser after commands

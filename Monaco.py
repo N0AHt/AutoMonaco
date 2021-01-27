@@ -214,12 +214,14 @@ class Monaco(SerialCommander):
 
         #set power
         power_command = 'RL=' + str(self.power)
+        print('power ok')
         self.serial_write(power_command)
 
         #set pulse_freq (in kHz) (amplifier rep rate)
         #NOTE: this must be a value selected from the drop down menu with compatible no. of microbursts
         #SET can also be used to change other parameters
         freq_command = 'SET=' + str(self.pulse_freq) + ',' + str(self.pulse_width) + ',' + str(self.RepRateDivisor) + ',' + str(self.MRR_dictionary[self.pulse_freq])
+        print('SET: ', freq_command)
         self.serial_write(freq_command)
 
         #wait until diode is ready

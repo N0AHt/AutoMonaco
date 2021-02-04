@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
 data = [[5, 0.006],
 
@@ -41,7 +42,22 @@ data = [[5, 0.006],
 xvals = [i[0] for i in data]
 yvals = [i[1] for i in data]
 
+degree = 10
+poly = np.polyfit(xvals, yvals, degree)
+x_vals1 = np.arange(100)
+function = np.polyval(poly, x_vals1)
+# xlist = [i for i in range(0,100)]
+# ylist = [function(float(xlist[i]) for i in xlist)]
+
+# plt.figure(1)
+# plt.plot(xvals, yvals)
+# plt.xlabel('RL value (%)')
+# plt.ylabel('interpolated Recorded Output Power (w)')
+# plt.title(poly)
+# plt.show(1)
+
+
+plt.plot(x_vals1, function)
 plt.plot(xvals, yvals)
-plt.xlabel('RL value (%)')
-plt.ylabel('Recorded Output Power (w)')
+plt.title('overlaid power graph')
 plt.show()

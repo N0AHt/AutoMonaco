@@ -20,7 +20,7 @@ class Monaco(SerialCommander):
         self.PulsesPerMicroburst = PulsesPerMicroburst
 
         #dictionary of amplifier rep rates with accepted corresponding no. of microbursts
-        self.MRR_dictionary = {1000:1, 500:2, 330:3, 250:4, 200:5}
+        self.MRR_dictionary = {50000:1, 10000:1, 4000:1, 2000:1, 1000:1, 500:2, 330:3, 250:4, 200:5}
 
         #internal checks - find out the current state of the laser
         self.update_internal_states()

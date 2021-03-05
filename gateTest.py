@@ -1,14 +1,14 @@
 from ArduinoGate import ArduinoGate
 import time
 
-#show available ports
-# print('Port list: ', ArduinoGate.port_finder())
-# #input device port
-# port = input('input port: ')
+show available ports
+print('Port list: ', ArduinoGate.port_finder())
+#input device port
+port = input('input port: ')
 
-gate_decoy = ArduinoGate('/dev/cu.usbmodem141301', 1000, 1000)
+gate_decoy = ArduinoGate(port, 1000, 1000)
 time.sleep(5)
-gate = ArduinoGate('/dev/cu.usbmodem141301', 1000, 1000)
+gate = ArduinoGate(port, 1000, 1000)
 
 for i in range(5):
     delay = input('delay: ')

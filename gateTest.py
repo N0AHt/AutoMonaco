@@ -4,11 +4,11 @@ import time
 #show available ports
 print('Port list: ', ArduinoGate.port_finder())
 #input device port
-port = input('input port: ')
+port_id = input('input port: ')
 
-gate_decoy = ArduinoGate(port, 1000, 1000)
-time.sleep(5)
-gate = ArduinoGate(port, 1000, 1000)
+# gate_decoy = ArduinoGate(port, 1000, 1000)
+# time.sleep(5)
+gate = ArduinoGate(port = port_id, baudrate = 1000, timeout = 1000)
 
 for i in range(5):
     delay = input('delay: ')

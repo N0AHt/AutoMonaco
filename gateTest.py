@@ -1,7 +1,7 @@
 from ArduinoGate import ArduinoGate
 import time
 
-show available ports
+#show available ports
 print('Port list: ', ArduinoGate.port_finder())
 #input device port
 port = input('input port: ')

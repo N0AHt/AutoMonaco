@@ -2,7 +2,7 @@ from SerialCommander import SerialCommander
 
 class ArduinoGate(SerialCommander):
 
-    def __init__(self, port, baudrate = 9600, timeout = 5, EOF_string = '\n', OpenDuration = 1000, ClosedDuration = 1000):
+    def __init__(self, port, baudrate = 9600, timeout = 5, EOF_string = '\r\n', OpenDuration = 1000, ClosedDuration = 1000):
 
         super().__init__(port, baudrate, timeout, EOF_string)
 

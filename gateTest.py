@@ -13,7 +13,7 @@ gate = ArduinoGate(port = port_id, baudrate = 9600, timeout = 5)
 for i in range(5):
     delay = input('delay: ')
     gate.quick_open(int(delay))
-    print('output: ', gate.serial_read()
+    print('output: ', gate.serial_read())
     #time.sleep(3)
 
 # print('Here')

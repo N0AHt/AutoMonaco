@@ -62,10 +62,10 @@ class SerialCommander:
         command_encoded = command.encode('ascii')
         (self.port).write(command_encoded)
         #automatic laser response must be read ! Or else...
-        #response = self.serial_read()
+        response = self.serial_read()
         #clear stack
         #self.ReadStack()
-        #return response
+        return response
 
     def query(self, string_input):
         response = self.serial_write(string_input)

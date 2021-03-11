@@ -2,7 +2,7 @@ from ArduinoGate import ArduinoGate
 from Monaco import Monaco
 import time
 
-laser = Monaco(Port_id = port, power = 80, pulse_freq = 1000)
+laser = Monaco(Port_id = 'com1', power = 80, pulse_freq = 1000)
 gate = ArduinoGate(port ='com4', baudrate = 9600, timeout = 5)
 
 laser.activate_laser(1) #gated Mode

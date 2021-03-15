@@ -11,9 +11,9 @@ laser.serial_write('BP=10')
 
 laser.status_report()
 
-laser.start_lasing()
+#laser.start_lasing()
 
-time.sleep(5)
+#time.sleep(5)
 
 
 
@@ -22,5 +22,8 @@ print('opening gate')
 gate.quick_open(5000)
 
 time.sleep(10)
+
+qate.quick_open(1000)
+time.sleep(5)
 
 laser.stop_lasing()

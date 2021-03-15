@@ -13,7 +13,7 @@ laser.start_lasing()
 for i in range(5):
     open_time = input('Delay: ')
     gate.quick_open(open_time)
-    time.sleep((open_time/1000)*1.2) #stops laser stopping before final gate closes
+    time.sleep((int(open_time)/1000)*1.2) #stops laser stopping before final gate closes
     print('output: ', gate.serial_read())
 
 laser.stop_lasing()

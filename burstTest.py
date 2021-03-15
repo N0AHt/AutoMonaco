@@ -23,7 +23,7 @@ gate.quick_open(5000)
 
 time.sleep(10)
 
-qate.quick_open(1000)
+gate.quick_open(1000)
 time.sleep(5)
 
 laser.stop_lasing()

@@ -8,7 +8,7 @@ gate = ArduinoGate(port ='com4', baudrate = 9600, timeout = 5)
 laser.set_parameters(RRD = 1)
 #laser.activate_laser(4)
 bursts = input('No. Pulses: ')
-laser.serial_write('BP=' + str(bursts)
+laser.serial_write('BP=' + str(bursts))
 
 laser.status_report()
 

@@ -10,5 +10,8 @@ laser.start_lasing()
 
 time.sleep(5)
 
+print('opening gate')
+
 gate.quick_open(5000)
-time.sleep(6000)
+
+time.sleep(10)

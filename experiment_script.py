@@ -27,6 +27,9 @@ for power in laserPowers:
 
     if confirm == 'y':
         gate.quick_open(500)
-        time.sleep(1)        
+        time.sleep(1)
     else:
+        laser.stop_lasing()
         sys.exit()
+
+laser.stop_lasing()

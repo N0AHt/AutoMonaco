@@ -1,6 +1,7 @@
 from ArduinoGate import ArduinoGate
 from Monaco import Monaco
 import time
+import sys
 
 #Instantiate Classes
 laser = Monaco(Port_id = 'com1', power = 80, pulse_freq = 1000)
@@ -12,7 +13,7 @@ bursts = input('No. Pulses: ')
 laser.serial_write('BP=' + str(bursts))
 
 #Begin test
-startPower = 5
+startPower = 5.5
 endPower = 100
 Step = 2
 

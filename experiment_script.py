@@ -13,7 +13,7 @@ bursts = input('No. Pulses: ')
 laser.serial_write('BP=' + str(bursts))
 
 #Begin test
-startPower = 5.5
+startPower = 5
 endPower = 100
 Step = 2
 

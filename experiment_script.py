@@ -7,7 +7,7 @@ laser = Monaco(Port_id = 'com1', power = 80, pulse_freq = 1000)
 gate = ArduinoGate(port ='com4', baudrate = 9600, timeout = 5)
 
 #Laser Set-up
-laser.set_parameters(power = 5, RRD = 4)
+laser.set_parameters(power = 5, RRD = 100)
 bursts = input('No. Pulses: ')
 laser.serial_write('BP=' + str(bursts))
 

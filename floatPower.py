@@ -9,6 +9,11 @@ print(error)
 
 print('done')
 
+rl = laser.serial_write('?RL')
+
+print('RL =', rl)
+print('done')
+
 
 # laser.start_lasing()
 #

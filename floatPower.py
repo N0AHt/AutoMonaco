@@ -3,7 +3,7 @@ import time
 
 port = 'com1'
 laser = Monaco(Port_id = port, power = 10, pulse_freq = 1000)
-error = laser.serial_write('RL=50.5')
+error = laser.serial_write('RL=50.505')
 
 print(error)
 

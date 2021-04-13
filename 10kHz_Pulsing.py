@@ -2,6 +2,7 @@ from ArduinoGate import ArduinoGate
 from Monaco import Monaco
 import numpy as np
 import time
+import sys
 
 #set to 10kHz
 laser = Monaco(Port_id = 'com1', power = 50.5, pulse_freq = 1000)

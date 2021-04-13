@@ -50,7 +50,7 @@ for power in laserPowers:
 
     laser.set_parameters(power = power)
     #Confirmation
-    testpower = Monaco.query('?RL')
+    testpower = laser.query('?RL')
     print('Power: ', testpower)
     confirm = input('Fire Laser? (y/n)')
 

@@ -40,7 +40,7 @@ def powerfinder(percentValue):
 
 #start experiment script
 startPower = 3
-endPower = 70
+endPower = 70+1
 Step = 3
 
 laserPowers = list(range(startPower,endPower,Step))

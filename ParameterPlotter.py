@@ -46,6 +46,8 @@ degree = 10
 poly = np.polyfit(xvals, yvals, degree)
 x_vals1 = np.arange(100)
 function = np.polyval(poly, x_vals1)
+
+print(poly)
 # xlist = [i for i in range(0,100)]
 # ylist = [function(float(xlist[i]) for i in xlist)]
 

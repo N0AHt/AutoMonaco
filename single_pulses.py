@@ -46,14 +46,16 @@ laserPowers = list(range(startPower,endPower,Step))
 
 laser.stop_lasing()
 laser.start_lasing()
-for power in laserPowers:
+for powers in laserPowers:
 
-    power = powerfinder(power)
+    power = powerfinder(powers)
 
     laser.set_parameters(power = power)
     #Confirmation
     testpower = laser.query('?RL')
-    print('Power: ', testpower)
+    print('Power (RL): ', testpower)
+    print('power (w): ', powerPercent(powers))
+    print('power(%): ', powers)
     confirm = input('Fire Laser? (y/n)')
 
     if confirm == 'y':

@@ -47,10 +47,11 @@ laser.start_lasing()
 for power in laserPowers:
 
     power = powerfinder(power)
-    
+
     laser.set_parameters(power = power)
     #Confirmation
-    print('Power: ', power)
+    testpower = Monaco.query('?RL')
+    print('Power: ', testpower)
     confirm = input('Fire Laser? (y/n)')
 
     if confirm == 'y':

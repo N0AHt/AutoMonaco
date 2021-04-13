@@ -11,7 +11,7 @@ gate = ArduinoGate(port ='com4', baudrate = 9600, timeout = 5)
 #Laser Set-up
 laser.set_parameters(power = 5, RRD = 10)
 #set to 40 pulses
-laser.serial_write('BP=40')
+laser.serial_write('BP=400')
 
 def solve_for_y(poly_coeffs, y):
 #stackoverflow: https://stackoverflow.com/questions/16827053/solving-for-x-values-of-polynomial-with-known-y-in-scipy-numpy

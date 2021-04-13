@@ -43,6 +43,7 @@ Step = 5
 
 laserPowers = list(range(startPower,endPower,Step))
 
+laser.stop_lasing()
 laser.start_lasing()
 for power in laserPowers:
 

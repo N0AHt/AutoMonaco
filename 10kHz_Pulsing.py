@@ -4,11 +4,11 @@ import numpy as np
 import time
 
 #set to 10kHz
-laser = Monaco(Port_id = 'com1', power = 50.5, pulse_freq = 10)
+laser = Monaco(Port_id = 'com1', power = 50.5, pulse_freq = 1000)
 gate = ArduinoGate(port ='com4', baudrate = 9600, timeout = 5)
 
 #Laser Set-up
-laser.set_parameters(power = 5)
+laser.set_parameters(power = 5, RRD = 100)
 #set to 40 pulses
 laser.serial_write('BP=40')
 

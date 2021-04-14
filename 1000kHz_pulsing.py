@@ -64,4 +64,6 @@ for power in laserPowers:
         laser.stop_lasing()
         sys.exit()
 
+    laser.set_parameters(power = 50)
+
 laser.stop_lasing()

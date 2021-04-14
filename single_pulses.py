@@ -7,7 +7,7 @@ import sys
 laser = Monaco(Port_id = 'com1', power = 50.5, pulse_freq = 1000)
 gate = ArduinoGate(port ='com4', baudrate = 9600, timeout = 5)
 
-laser.activate_laser(5)
+#laser.activate_laser(5)
 
 #Laser Set-up
 laser.set_parameters(power = 5)
@@ -48,7 +48,7 @@ Step = 5
 laserPowers = list(range(startPower,endPower,Step))
 
 #laser.stop_lasing()
-laser.start_lasing()
+#laser.start_lasing()
 for powers in laserPowers:
 
     power = powerfinder(powers)

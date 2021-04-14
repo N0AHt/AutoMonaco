@@ -14,7 +14,6 @@ laser.set_parameters(power = 5)
 #set single pulse
 laser.serial_write('BP=1')
 
-laser
 
 def solve_for_y(poly_coeffs, y):
 #stackoverflow: https://stackoverflow.com/questions/16827053/solving-for-x-values-of-polynomial-with-known-y-in-scipy-numpy

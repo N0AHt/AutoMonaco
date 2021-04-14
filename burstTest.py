@@ -5,6 +5,8 @@ import time
 laser = Monaco(Port_id = 'com1', power = 50.5, pulse_freq = 1000)
 gate = ArduinoGate(port ='com4', baudrate = 9600, timeout = 5)
 
+laser.activate_laser(5)
+
 laser.set_parameters(RRD = 4)
 #laser.activate_laser(4)
 bursts = input('No. Pulses: ')

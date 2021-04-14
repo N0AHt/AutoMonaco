@@ -7,10 +7,14 @@ import sys
 laser = Monaco(Port_id = 'com1', power = 50.5, pulse_freq = 1000)
 gate = ArduinoGate(port ='com4', baudrate = 9600, timeout = 5)
 
+laser.activate_laser(5)
+
 #Laser Set-up
 laser.set_parameters(power = 5)
 #set single pulse
 laser.serial_write('BP=1')
+
+laser
 
 def solve_for_y(poly_coeffs, y):
 #stackoverflow: https://stackoverflow.com/questions/16827053/solving-for-x-values-of-polynomial-with-known-y-in-scipy-numpy

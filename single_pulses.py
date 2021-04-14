@@ -56,14 +56,16 @@ for powers in laserPowers:
     laser.set_parameters(power = power)
     #Confirmation
     testpower = laser.query('?RL')
+    pulseno = laser.query('?BP')
     print('Power (RL): ', testpower)
     print('power (w): ', powerPercent(powers))
     print('power(%): ', powers)
+    print('pulses = ', pulseno)
     confirm = input('Fire Laser? (y/n)')
 
     if confirm == 'y':
         gate.quick_open(500)
-        time.sleep(1)
+        time.sleep(2)
     else:
         laser.stop_lasing()
         sys.exit()

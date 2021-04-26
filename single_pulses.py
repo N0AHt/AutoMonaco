@@ -49,6 +49,7 @@ laserPowers = list(range(startPower,endPower,Step))
 
 #laser.stop_lasing()
 laser.start_lasing()
+output_values = []
 for powers in laserPowers:
 
     power = powerfinder(powers)
@@ -63,6 +64,8 @@ for powers in laserPowers:
     print('pulses = ', pulseno)
     confirm = input('Fire Laser? (y/n)')
 
+    output_values.append([testpower, powerPercent(powers), powers, pulseno])
+
     if confirm == 'y':
         gate.quick_open(500)
         time.sleep(2)
@@ -71,3 +74,4 @@ for powers in laserPowers:
         sys.exit()
 
 laser.stop_lasing()
+np.savetxt('singlePulsesParameters.txt', output_values)

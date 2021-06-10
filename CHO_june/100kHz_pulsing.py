@@ -4,16 +4,14 @@ import numpy as np
 import time
 import sys
 
+#set to 10kHz
 laser = Monaco(Port_id = 'com1', power = 50.5, pulse_freq = 1000)
 gate = ArduinoGate(port ='com4', baudrate = 9600, timeout = 5)
 
-#laser.activate_laser(5)
-
 #Laser Set-up
-laser.set_parameters(power = 5)
-#set single pulse
-laser.serial_write('BP=1')
-
+laser.set_parameters(power = 5, RRD = 10)
+#set to 40 pulses
+laser.serial_write('BP=1000')
 
 def solve_for_y(poly_coeffs, y):
 #stackoverflow: https://stackoverflow.com/questions/16827053/solving-for-x-values-of-polynomial-with-known-y-in-scipy-numpy
@@ -41,38 +39,29 @@ def powerfinder(percentValue):
     return RL
 
 #start experiment script
-startPower = 5
-endPower = 100+1
-Step = 5
+startPower = 3
+endPower = 70+1
+Step = 3
 
 laserPowers = list(range(startPower,endPower,Step))
 
-#laser.stop_lasing()
+laser.stop_lasing()
 laser.start_lasing()
-#add rep rate
-output_values = []
-for powers in laserPowers:
+for power in laserPowers:
 
-    power = powerfinder(powers)
+    power = powerfinder(power)
 
     laser.set_parameters(power = power)
     #Confirmation
     testpower = laser.query('?RL')
-    pulseno = laser.query('?BP')
-    print('Power (RL): ', testpower)
-    print('power (w): ', powerPercent(powers))
-    print('power(%): ', powers)
-    print('pulses = ', pulseno)
+    print('Power: ', testpower)
     confirm = input('Fire Laser? (y/n)')
-
-    output_values.append([testpower, powerPercent(powers), powers, pulseno])
 
     if confirm == 'y':
         gate.quick_open(500)
-        time.sleep(2)
+        time.sleep(1)
     else:
         laser.stop_lasing()
         sys.exit()
 
 laser.stop_lasing()
-np.savetxt('singlePulsesParameters.txt', output_values)

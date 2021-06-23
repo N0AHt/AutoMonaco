@@ -44,8 +44,10 @@ yvals = [i[1] for i in data]
 
 degree = 10
 poly = np.polyfit(xvals, yvals, degree)
-x_vals1 = np.arange(100)
+x_vals1 = np.arange(1, 101, 1)
 function = np.polyval(poly, x_vals1)
+
+print(poly)
 # xlist = [i for i in range(0,100)]
 # ylist = [function(float(xlist[i]) for i in xlist)]
 
@@ -61,3 +63,8 @@ plt.plot(x_vals1, function)
 plt.plot(xvals, yvals)
 plt.title('overlaid power graph')
 plt.show()
+
+
+# making table
+table_Array = [x_vals1,function,[((100/5.24)*x) for x in function]]
+np.savetxt('lookup.csv', table_Array, delimiter=',')

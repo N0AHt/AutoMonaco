@@ -1,5 +1,3 @@
-#start up for laser
-
 from Monaco import Monaco
 import time
 
@@ -10,9 +8,5 @@ port = input('input port: ')
 
 #Open port and check connection is secure
 laser = Monaco(Port_id = port, power = 10, pulse_freq = 10)
-laser.hello_laser()
-
-laser.start_up()
-
-#turn on diodes with continuous pulsing
-laser.activate_laser(5)
+laser.serial_write('LOCKOUT=0')
+print('unlocked laser port')

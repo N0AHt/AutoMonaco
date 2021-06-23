@@ -187,6 +187,21 @@ class Monaco(SerialCommander):
 
         self.update_internal_states()
 
+    def burstPulses(self, burst_number):
+
+        burstcommand = 'BP=', + str(burst_number)
+
+        self.serial_write(burstcommand)
+        
+        #wait until diode is ready
+        self.update_internal_states()
+        while self.diode_ready != True:
+            time.sleep(2)
+            self.update_internal_states()
+            self.status_report()
+
+        self.update_internal_states()
+
     #this is broken since adding set funtion...
     def set_parameters(self, power = None, pulse_freq = None, RRD = None, pulse_width = None, Bursts = None):
         #update internal parameter values

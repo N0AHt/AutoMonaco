@@ -13,6 +13,6 @@ https://github.com/clade/ThorlabsPM100
 
 Acknowledgements:
 
-Heavily based on https://github.com/AliSan123/Optogenetics_project
+Following from: https://github.com/AliSan123/Optogenetics_project
 
 

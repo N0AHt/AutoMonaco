@@ -187,6 +187,21 @@ class Monaco(SerialCommander):
 
         self.update_internal_states()
 
+    def burstPulses(self, burst_number):
+
+        burstcommand = 'BP=', + str(burst_number)
+
+        self.serial_write(burstcommand)
+        
+        #wait until diode is ready
+        self.update_internal_states()
+        while self.diode_ready != True:
+            time.sleep(2)
+            self.update_internal_states()
+            self.status_report()
+
+        self.update_internal_states()
+
     #this is broken since adding set funtion...
     def set_parameters(self, power = None, pulse_freq = None, RRD = None, pulse_width = None, Bursts = None):
         #update internal parameter values
@@ -262,6 +277,38 @@ class Monaco(SerialCommander):
         self.diodes_on = False
 
         self.closePort()
+
+    #relinquishes control of the laser from serial port (allows GUI to control laser)
+    def laser_unlock(self):
+        laser.serial_write('LOCKOUT=0')
+
+
+#conversion functionality to linearise the RL to watts relationship of the laser
+    def solve_for_y(poly_coeffs, y):
+    #stackoverflow: https://stackoverflow.com/questions/16827053/solving-for-x-values-of-polynomial-with-known-y-in-scipy-numpy
+        pc = poly_coeffs.copy()
+        pc[-1] -= y
+        return np.roots(pc)
+
+    def Watt2RL(desired_power):
+        #desired power must be in range
+        polynom = [-3.89619018e-18, 1.43681797e-15, -1.71273526e-13,  8.88299244e-13, 1.54934881e-09, -1.41594079e-07,  4.87160468e-06, -4.11977712e-05, 2.31567217e-04,  2.70908813e-03, -1.08571654e-02]
+        roots = solve_for_y(polynom, desired_power)
+        #limit roots between 0 and 100, limit no complex values
+        rootsReal = [root.real for root in roots if root.imag == 0]
+        rootsLimited = [root for root in rootsReal if root >= 0 and root <=100]
+        return rootsLimited[0] #round value???
+
+    def powerPercent(percentValue):
+        maxpower = 5.24
+        power = (5.24/100)*percentValue
+        return power
+
+    def powerfinder(percentValue):
+        power = powerPercent(percentValue)
+        RL = Watt2RL(power)
+        return RL
+
 
 
     # def power_off(self):
